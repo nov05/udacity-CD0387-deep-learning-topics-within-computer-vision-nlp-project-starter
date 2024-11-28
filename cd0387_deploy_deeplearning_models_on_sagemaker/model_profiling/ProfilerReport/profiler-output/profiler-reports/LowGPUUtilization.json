@@ -1,0 +1,1 @@
+{"RuleTriggered": 10, "Violations": 10, "Details": {"algo-1": {"gpu0": {"gpu_max": 100.0, "gpu_95": 33.19999999999982, "gpu_5": 0.0, "p25": 0.0, "p50": 0.0, "p75": 0.0, "p95": 17.0, "upper": 0.0, "lower": 0.0}}, "last_timestamp": 1626789240000000}, "Datapoints": 2092, "RuleParameters": "threshold_p95:70\nthreshold_p5:10\nwindow:500\npatience:1000"}
