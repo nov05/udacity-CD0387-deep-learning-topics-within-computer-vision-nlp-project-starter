@@ -19,3 +19,9 @@ config: {'device': device(type='cuda', index=0), 'max_len': 64, 'epochs': 30, 'b
 2024-11-29 00:38:17,945 INFO    MainThread:44876 [wandb_run.py:_label_probe_notebook():1339] probe notebook
 2024-11-29 00:38:17,946 INFO    MainThread:44876 [wandb_init.py:init():781] updated telemetry
 2024-11-29 00:38:17,992 INFO    MainThread:44876 [wandb_init.py:init():814] communicating run to backend with 90.0 second timeout
+2024-11-29 00:38:18,694 INFO    MainThread:44876 [wandb_init.py:init():867] starting run threads in backend
+2024-11-29 00:38:18,999 INFO    MainThread:44876 [wandb_run.py:_console_start():2456] atexit reg
+2024-11-29 00:38:18,999 INFO    MainThread:44876 [wandb_run.py:_redirect():2305] redirect: wrap_raw
+2024-11-29 00:38:19,000 INFO    MainThread:44876 [wandb_run.py:_redirect():2370] Wrapping output streams.
+2024-11-29 00:38:19,000 INFO    MainThread:44876 [wandb_run.py:_redirect():2395] Redirects installed.
+2024-11-29 00:38:19,003 INFO    MainThread:44876 [wandb_init.py:init():911] run started, returning control to user process

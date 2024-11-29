@@ -5,3 +5,5 @@
 {"time":"2024-11-29T00:38:18.2810915-06:00","level":"INFO","msg":"writer: Do: started","stream_id":"dynd1t2i"}
 {"time":"2024-11-29T00:38:18.2810915-06:00","level":"INFO","msg":"handler: started","stream_id":"dynd1t2i"}
 {"time":"2024-11-29T00:38:18.2810915-06:00","level":"INFO","msg":"sender: started","stream_id":"dynd1t2i"}
+{"time":"2024-11-29T00:38:18.7008767-06:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-11-29T00:38:18.7008767-06:00","level":"WARN","msg":"handleCodeSave: program relative path is empty"}
