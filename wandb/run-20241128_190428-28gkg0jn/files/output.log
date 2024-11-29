@@ -1,0 +1,109 @@
+ 20%|██        | 6/30 [29:01<1:56:58, 292.44s/it]
+Epoch 0, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 1.42 Accuracy: 12993/32000 (40.60%) Time: Thu Nov 28 19:06:51 2024
+Step 195, Images [50000/50000 (100%)] Loss: 1.28 Accuracy: 24550/50000 (49.10%) Time: Thu Nov 28 19:08:19 2024
+Epoch 0, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 1.21 Accuracy: 6752/10000 (67.52%) Time: Thu Nov 28 19:09:05 2024
+Epoch 1, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.96 Accuracy: 22529/32000 (70.40%) Time: Thu Nov 28 19:11:42 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.97 Accuracy: 35664/50000 (71.33%) Time: Thu Nov 28 19:13:09 2024
+Epoch 1, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.93 Accuracy: 7364/10000 (73.64%) Time: Thu Nov 28 19:13:57 2024
+Epoch 2, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.84 Accuracy: 23851/32000 (74.53%) Time: Thu Nov 28 19:16:36 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.86 Accuracy: 37396/50000 (74.79%) Time: Thu Nov 28 19:18:05 2024
+Epoch 2, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.83 Accuracy: 7590/10000 (75.90%) Time: Thu Nov 28 19:18:55 2024
+Epoch 3, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.79 Accuracy: 24444/32000 (76.39%) Time: Thu Nov 28 19:21:30 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.60 Accuracy: 38321/50000 (76.64%) Time: Thu Nov 28 19:23:02 2024
+Epoch 3, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.75 Accuracy: 7669/10000 (76.69%) Time: Thu Nov 28 19:23:47 2024
+Epoch 4, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.66 Accuracy: 24684/32000 (77.14%) Time: Thu Nov 28 19:26:23 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.77 Accuracy: 38689/50000 (77.38%) Time: Thu Nov 28 19:27:52 2024
+Epoch 4, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.73 Accuracy: 7782/10000 (77.82%) Time: Thu Nov 28 19:28:37 2024
+Epoch 5, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.68 Accuracy: 24928/32000 (77.90%) Time: Thu Nov 28 19:31:19 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.61 Accuracy: 39090/50000 (78.18%) Time: Thu Nov 28 19:32:44 2024
+Epoch 5, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.69 Accuracy: 7820/10000 (78.20%) Time: Thu Nov 28 19:33:33 2024
+Epoch 6, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.68 Accuracy: 25080/32000 (78.38%) Time: Thu Nov 28 19:36:03 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.60 Accuracy: 39277/50000 (78.55%) Time: Thu Nov 28 19:37:31 2024
+Epoch 6, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.65 Accuracy: 7873/10000 (78.73%) Time: Thu Nov 28 19:38:16 2024
+Epoch 7, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.58 Accuracy: 25265/32000 (78.95%) Time: Thu Nov 28 19:40:50 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.68 Accuracy: 39505/50000 (79.01%) Time: Thu Nov 28 19:42:16 2024
+Epoch 7, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.64 Accuracy: 7916/10000 (79.16%) Time: Thu Nov 28 19:43:03 2024
+Epoch 8, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.61 Accuracy: 25390/32000 (79.34%) Time: Thu Nov 28 19:45:38 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.56 Accuracy: 39754/50000 (79.51%) Time: Thu Nov 28 19:47:07 2024
+Epoch 8, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.62 Accuracy: 7918/10000 (79.18%) Time: Thu Nov 28 19:47:53 2024
+Epoch 9, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.60 Accuracy: 25432/32000 (79.47%) Time: Thu Nov 28 19:50:28 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.62 Accuracy: 39763/50000 (79.53%) Time: Thu Nov 28 19:51:59 2024
+Epoch 9, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.60 Accuracy: 7952/10000 (79.52%) Time: Thu Nov 28 19:52:43 2024
+Epoch 10, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.58 Accuracy: 25564/32000 (79.89%) Time: Thu Nov 28 19:55:22 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.58 Accuracy: 39953/50000 (79.91%) Time: Thu Nov 28 19:56:50 2024
+Epoch 10, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.61 Accuracy: 7959/10000 (79.59%) Time: Thu Nov 28 19:57:34 2024
+Epoch 11, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.62 Accuracy: 25624/32000 (80.08%) Time: Thu Nov 28 20:00:08 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.48 Accuracy: 40082/50000 (80.16%) Time: Thu Nov 28 20:01:37 2024
+Epoch 11, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.60 Accuracy: 8002/10000 (80.02%) Time: Thu Nov 28 20:02:19 2024
+Epoch 12, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.65 Accuracy: 25668/32000 (80.21%) Time: Thu Nov 28 20:04:53 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.46 Accuracy: 40147/50000 (80.29%) Time: Thu Nov 28 20:06:20 2024
+Epoch 12, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.56 Accuracy: 8008/10000 (80.08%) Time: Thu Nov 28 20:07:05 2024
+Epoch 13, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.57 Accuracy: 25762/32000 (80.51%) Time: Thu Nov 28 20:09:32 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.59 Accuracy: 40286/50000 (80.57%) Time: Thu Nov 28 20:10:52 2024
+Epoch 13, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.54 Accuracy: 7998/10000 (79.98%) Time: Thu Nov 28 20:11:38 2024
+Epoch 14, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.68 Accuracy: 25813/32000 (80.67%) Time: Thu Nov 28 20:14:06 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.73 Accuracy: 40350/50000 (80.70%) Time: Thu Nov 28 20:15:28 2024
+Epoch 14, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.54 Accuracy: 8025/10000 (80.25%) Time: Thu Nov 28 20:16:11 2024
+Epoch 15, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.56 Accuracy: 25948/32000 (81.09%) Time: Thu Nov 28 20:18:37 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.39 Accuracy: 40374/50000 (80.75%) Time: Thu Nov 28 20:20:04 2024
+Epoch 15, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.54 Accuracy: 8032/10000 (80.32%) Time: Thu Nov 28 20:20:53 2024
+Epoch 16, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.57 Accuracy: 25895/32000 (80.92%) Time: Thu Nov 28 20:23:34 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.40 Accuracy: 40474/50000 (80.95%) Time: Thu Nov 28 20:25:00 2024
+Epoch 16, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.53 Accuracy: 8020/10000 (80.20%) Time: Thu Nov 28 20:25:48 2024
+Epoch 17, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.58 Accuracy: 25844/32000 (80.76%) Time: Thu Nov 28 20:28:27 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.52 Accuracy: 40448/50000 (80.90%) Time: Thu Nov 28 20:30:02 2024
+Epoch 17, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.50 Accuracy: 8049/10000 (80.49%) Time: Thu Nov 28 20:30:53 2024
+Epoch 18, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.50 Accuracy: 25954/32000 (81.11%) Time: Thu Nov 28 20:33:29 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.50 Accuracy: 40510/50000 (81.02%) Time: Thu Nov 28 20:35:00 2024
+Epoch 18, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.53 Accuracy: 8052/10000 (80.52%) Time: Thu Nov 28 20:35:45 2024
+Epoch 19, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.59 Accuracy: 25884/32000 (80.89%) Time: Thu Nov 28 20:38:34 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.42 Accuracy: 40482/50000 (80.96%) Time: Thu Nov 28 20:40:09 2024
+Epoch 19, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.50 Accuracy: 8058/10000 (80.58%) Time: Thu Nov 28 20:40:54 2024
+Epoch 20, Phase train
+Step 124, Images [32000/50000 (64%)] Loss: 0.59 Accuracy: 25981/32000 (81.19%) Time: Thu Nov 28 20:43:38 2024
+Step 195, Images [50000/50000 (100%)] Loss: 0.60 Accuracy: 40663/50000 (81.33%) Time: Thu Nov 28 20:45:13 2024
+Epoch 20, Phase eval
+Step 39, Images [10000/10000 (100%)] Loss: 0.52 Accuracy: 8073/10000 (80.73%) Time: Thu Nov 28 20:46:01 2024
+👉 Running on device type: cuda:0
+Files already downloaded and verified
+Files already downloaded and verified

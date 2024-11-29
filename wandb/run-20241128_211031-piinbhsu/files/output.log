@@ -1,0 +1,33 @@
+ 17%|█▋        | 5/30 [32:23<2:41:57, 388.72s/it]
+👉 Epoch 0, Phase "train"
+Step 125, Images [32000/50000 (64%)] Loss: 0.33 Accuracy: 25544/32000 (79.83%) Time: Thu Nov 28 21:13:11 2024
+Step 196, Images [50000/50000 (100%)] Loss: 0.37 Accuracy: 41515/50000 (83.03%) Time: Thu Nov 28 21:14:58 2024
+👉 Epoch 0, Phase "eval"
+Step 236, Images [10000/10000 (100%)] Loss: 0.11 Accuracy: 8910/10000 (89.10%) Time: Thu Nov 28 21:15:44 2024
+👉 Epoch 1, Phase "train"
+Step 361, Images [32000/50000 (64%)] Loss: 0.21 Accuracy: 29660/32000 (92.69%) Time: Thu Nov 28 21:18:53 2024
+Step 432, Images [50000/50000 (100%)] Loss: 0.19 Accuracy: 46292/50000 (92.58%) Time: Thu Nov 28 21:20:30 2024
+👉 Epoch 1, Phase "eval"
+Step 472, Images [10000/10000 (100%)] Loss: 0.09 Accuracy: 9040/10000 (90.40%) Time: Thu Nov 28 21:21:25 2024
+👉 Epoch 2, Phase "train"
+Step 597, Images [32000/50000 (64%)] Loss: 0.13 Accuracy: 30649/32000 (95.78%) Time: Thu Nov 28 21:24:33 2024
+Step 668, Images [50000/50000 (100%)] Loss: 0.28 Accuracy: 47833/50000 (95.67%) Time: Thu Nov 28 21:26:12 2024
+👉 Epoch 2, Phase "eval"
+Step 708, Images [10000/10000 (100%)] Loss: 0.09 Accuracy: 9090/10000 (90.90%) Time: Thu Nov 28 21:27:00 2024
+👉 Epoch 3, Phase "train"
+Step 833, Images [32000/50000 (64%)] Loss: 0.07 Accuracy: 31212/32000 (97.54%) Time: Thu Nov 28 21:29:54 2024
+Step 904, Images [50000/50000 (100%)] Loss: 0.11 Accuracy: 48804/50000 (97.61%) Time: Thu Nov 28 21:31:29 2024
+👉 Epoch 3, Phase "eval"
+Step 944, Images [10000/10000 (100%)] Loss: 0.04 Accuracy: 9115/10000 (91.15%) Time: Thu Nov 28 21:32:17 2024
+👉 Epoch 4, Phase "train"
+Step 1069, Images [32000/50000 (64%)] Loss: 0.05 Accuracy: 31600/32000 (98.75%) Time: Thu Nov 28 21:35:20 2024
+Step 1140, Images [50000/50000 (100%)] Loss: 0.05 Accuracy: 49341/50000 (98.68%) Time: Thu Nov 28 21:37:06 2024
+👉 Epoch 4, Phase "eval"
+Step 1180, Images [10000/10000 (100%)] Loss: 0.06 Accuracy: 9124/10000 (91.24%) Time: Thu Nov 28 21:37:50 2024
+👉 Epoch 5, Phase "train"
+Step 1305, Images [32000/50000 (64%)] Loss: 0.01 Accuracy: 31801/32000 (99.38%) Time: Thu Nov 28 21:40:40 2024
+Step 1376, Images [50000/50000 (100%)] Loss: 0.05 Accuracy: 49672/50000 (99.34%) Time: Thu Nov 28 21:42:15 2024
+👉 Epoch 5, Phase "eval"
+Step 1416, Images [10000/10000 (100%)] Loss: 0.03 Accuracy: 9155/10000 (91.55%) Time: Thu Nov 28 21:42:58 2024
+Testing model on whole testing dataset...
+🟢 Testing Accuracy: 91.55, Testing Loss: 0.27510506587028505

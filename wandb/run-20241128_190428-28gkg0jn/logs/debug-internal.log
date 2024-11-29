@@ -1,0 +1,78 @@
+{"time":"2024-11-28T19:04:30.4609205-06:00","level":"INFO","msg":"using version","core version":"0.18.6"}
+{"time":"2024-11-28T19:04:30.4609205-06:00","level":"INFO","msg":"created symlink","path":"d:\\github\\udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter\\wandb\\run-20241128_190428-28gkg0jn\\logs\\debug-core.log"}
+{"time":"2024-11-28T19:04:30.5738879-06:00","level":"INFO","msg":"created new stream","id":"28gkg0jn"}
+{"time":"2024-11-28T19:04:30.5738879-06:00","level":"INFO","msg":"stream: started","id":"28gkg0jn"}
+{"time":"2024-11-28T19:04:30.5738879-06:00","level":"INFO","msg":"sender: started","stream_id":"28gkg0jn"}
+{"time":"2024-11-28T19:04:30.5738879-06:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"28gkg0jn"}}
+{"time":"2024-11-28T19:04:30.5738879-06:00","level":"INFO","msg":"handler: started","stream_id":{"value":"28gkg0jn"}}
+{"time":"2024-11-28T19:04:30.9173142-06:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-11-28T19:04:30.9173142-06:00","level":"WARN","msg":"handleCodeSave: program relative path is empty"}
+{"time":"2024-11-28T20:46:02.349312-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:02.3862089-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:02.7819195-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:02.8067502-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:03.1699845-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:03.198878-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:04.8510244-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:04.8725048-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:05.3489571-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:05.36978-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:05.7099484-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:05.729681-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:06.0612852-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:06.0834835-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:06.402066-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:06.4264944-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:06.7598834-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:06.7859397-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:07.1198205-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:07.1438902-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:07.4741848-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:07.4809999-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:07.806924-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:07.8268005-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:08.1693851-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:08.185462-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:08.4950972-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:08.5138308-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:08.8407663-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:08.8566204-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:09.2072835-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:09.2244701-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:09.5639541-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:09.5856165-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:09.9364894-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:09.9560134-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:10.2899522-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:10.3238194-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:10.7244706-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:10.7337163-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:11.0523848-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:11.0765532-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:11.410213-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:11.4195764-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:11.7599796-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:11.7779751-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:12.1057764-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:12.1208838-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:12.4361826-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:12.461594-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:12.7729806-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:46:32.2439289-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:46:32.5411435-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:47:13.3534667-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:47:13.6618298-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:50:08.773725-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:50:09.0839773-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T20:50:36.7267616-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T20:50:38.9599493-06:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-11-28T20:50:38.9615153-06:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-11-28T20:50:39.9719386-06:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading artifact source-udacity-awsmle-resnet18-cifar10-d__github_udacity-CD0387..mmon_model_arch_types_fine_tuning_training_a_cnn_solution.ipynb","runtime_seconds":1.0162167}],"total_operations":1}}
+{"time":"2024-11-28T20:50:40.563402-06:00","level":"WARN","msg":"Unable to find program entrypoint in current directory, not creating job artifact."}
+{"time":"2024-11-28T20:50:40.563402-06:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2024-11-28T20:50:40.6141632-06:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-11-28T20:50:41.9235806-06:00","level":"INFO","msg":"stream: closing","id":"28gkg0jn"}
+{"time":"2024-11-28T20:50:41.9235806-06:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"28gkg0jn"}}
+{"time":"2024-11-28T20:50:41.9235806-06:00","level":"INFO","msg":"sender: closed","stream_id":"28gkg0jn"}
+{"time":"2024-11-28T20:50:41.9235806-06:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"28gkg0jn"}}
+{"time":"2024-11-28T20:50:41.9235806-06:00","level":"INFO","msg":"stream: closed","id":"28gkg0jn"}

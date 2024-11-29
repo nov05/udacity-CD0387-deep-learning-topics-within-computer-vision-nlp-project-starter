@@ -1,0 +1,9 @@
+{"time":"2024-11-28T21:10:33.6778798-06:00","level":"INFO","msg":"using version","core version":"0.18.6"}
+{"time":"2024-11-28T21:10:33.6783868-06:00","level":"INFO","msg":"created symlink","path":"d:\\github\\udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter\\wandb\\run-20241128_211031-piinbhsu\\logs\\debug-core.log"}
+{"time":"2024-11-28T21:10:33.7932979-06:00","level":"INFO","msg":"created new stream","id":"piinbhsu"}
+{"time":"2024-11-28T21:10:33.7932979-06:00","level":"INFO","msg":"stream: started","id":"piinbhsu"}
+{"time":"2024-11-28T21:10:33.7932979-06:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"piinbhsu"}}
+{"time":"2024-11-28T21:10:33.7932979-06:00","level":"INFO","msg":"sender: started","stream_id":"piinbhsu"}
+{"time":"2024-11-28T21:10:33.7932979-06:00","level":"INFO","msg":"handler: started","stream_id":{"value":"piinbhsu"}}
+{"time":"2024-11-28T21:10:34.1730604-06:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-11-28T21:10:34.1735695-06:00","level":"WARN","msg":"handleCodeSave: program relative path is empty"}
