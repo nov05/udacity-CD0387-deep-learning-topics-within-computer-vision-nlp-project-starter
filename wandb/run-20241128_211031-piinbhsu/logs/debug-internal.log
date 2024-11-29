@@ -7,3 +7,10 @@
 {"time":"2024-11-28T21:10:33.7932979-06:00","level":"INFO","msg":"handler: started","stream_id":{"value":"piinbhsu"}}
 {"time":"2024-11-28T21:10:34.1730604-06:00","level":"INFO","msg":"Starting system monitor"}
 {"time":"2024-11-28T21:10:34.1735695-06:00","level":"WARN","msg":"handleCodeSave: program relative path is empty"}
+{"time":"2024-11-28T21:42:58.9673463-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T21:43:15.129165-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T21:43:49.9688359-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T21:45:45.3861795-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T21:45:45.7569229-06:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-11-28T21:45:45.7708703-06:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-11-28T21:45:46.084993-06:00","level":"INFO","msg":"Pausing system monitor"}
