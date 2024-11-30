@@ -109,7 +109,7 @@ def main():
         transforms.Normalize((0.1307,), (0.3081,))  # Normalization for MNIST dataset
     ])
 
-    # TODO: Add the CIFAR10 dataset and create your data loaders
+    # TODO: Add the MNIST dataset and create your data loaders
     train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
     test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
