@@ -5,6 +5,10 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
+# ====================================#
+# 1. Import SMDebug framework class. #
+# ====================================#
+import smdebug.pytorch as smd
 
 
 class Net(nn.Module):
@@ -42,9 +46,14 @@ class Net(nn.Module):
         return self.model(x)
 
 
-def train(model, train_loader, optimizer, epoch):
+def train(model, train_loader, optimizer, epoch, hook):
+    # =================================================#
+    # 2. Set the SMDebug hook for the training phase. #
+    # =================================================#
+    hook.set_mode(smd.modes.TRAIN)
+    model.train()
+    print(f"👉 Train Epoch: {epoch}")
     for batch_idx, (data, target) in enumerate(train_loader):
-        print(f"👉 Train Epoch: {epoch}")
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target)
@@ -62,7 +71,12 @@ def train(model, train_loader, optimizer, epoch):
             )
 
 
-def test(model, test_loader):
+def test(model, test_loader, hook):
+    # ===================================================#
+    # 3. Set the SMDebug hook for the validation phase. #
+    # ===================================================#
+    hook.set_mode(smd.modes.EVAL)
+    model.eval()
     test_loss = 0
     correct = 0
     with torch.no_grad():
@@ -118,12 +132,20 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=args.test_batch_size, shuffle=False)
 
     model = Net()
+    # ======================================================#
+    # 4. Register the SMDebug hook to save output tensors. #
+    # ======================================================#
+    hook = smd.Hook.create_from_json_file()
+    hook.register_hook(model)
     # TODO: Add your optimizer
     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
+    # ===========================================================#
+    # 5. Pass the SMDebug hook to the train and test functions. #
+    # ===========================================================#
     for epoch in range(args.epochs):
-        train(model, train_loader, optimizer, epoch)
-        test(model, test_loader)
+        train(model, train_loader, optimizer, epoch, hook)
+        test(model, test_loader, hook)
 
 
 if __name__ == "__main__":

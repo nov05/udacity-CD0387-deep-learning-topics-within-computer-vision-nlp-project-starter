@@ -38,6 +38,7 @@ class Net(nn.Module):
 
 
 def train(model, train_loader, optimizer, epoch, hook):
+    print(f"👉 Train Epoch: {epoch}")
     model.train()
     # =================================================#
     # 2. Set the SMDebug hook for the training phase. #
@@ -74,11 +75,9 @@ def test(model, test_loader, hook):
             test_loss += F.nll_loss(output, target, reduction="sum").item()  # sum up batch loss
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
-
     test_loss /= len(test_loader.dataset)
-
     print(
-        "\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n".format(
+        "\n👉 Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n".format(
             test_loss, correct, len(test_loader.dataset), 100.0 * correct / len(test_loader.dataset)
         )
     )
@@ -115,7 +114,6 @@ def main():
     
     train_kwargs = {"batch_size": args.batch_size}
     test_kwargs = {"batch_size": args.test_batch_size}
-
     transform = transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
     )
