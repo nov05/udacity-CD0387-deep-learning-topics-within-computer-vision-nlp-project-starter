@@ -9,6 +9,7 @@ from torch.utils.data import DataLoader
 # 1. Import SMDebug framework class. #
 # ====================================#
 import smdebug.pytorch as smd
+DEBUG = False
 
 
 class Net(nn.Module):
@@ -50,7 +51,7 @@ def train(model, train_loader, optimizer, epoch, hook):
     # =================================================#
     # 2. Set the SMDebug hook for the training phase. #
     # =================================================#
-    hook.set_mode(smd.modes.TRAIN)
+    if DEBUG: hook.set_mode(smd.modes.TRAIN)
     model.train()
     print(f"👉 Train Epoch: {epoch}")
     for batch_idx, (data, target) in enumerate(train_loader):
@@ -75,7 +76,7 @@ def test(model, test_loader, hook):
     # ===================================================#
     # 3. Set the SMDebug hook for the validation phase. #
     # ===================================================#
-    hook.set_mode(smd.modes.EVAL)
+    if DEBUG: hook.set_mode(smd.modes.EVAL)
     model.eval()
     test_loss = 0
     correct = 0
@@ -135,8 +136,10 @@ def main():
     # ======================================================#
     # 4. Register the SMDebug hook to save output tensors. #
     # ======================================================#
-    hook = smd.Hook.create_from_json_file()
-    hook.register_hook(model)
+    hook = None
+    if DEBUG:
+        hook = smd.Hook.create_from_json_file()
+        hook.register_hook(model)
     # TODO: Add your optimizer
     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
