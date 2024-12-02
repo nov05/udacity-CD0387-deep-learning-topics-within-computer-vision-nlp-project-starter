@@ -1,0 +1,13 @@
+{
+    "Version": "2008-10-17",
+    "Id": "Enforce HTTPS",
+    "Statement": [
+        {
+            "Sid": "PublicReadAccessForPrefix",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::sagemaker-us-east-1-061096721307/p3-dog-breed-classification/*"
+        }
+    ]
+}

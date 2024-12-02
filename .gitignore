@@ -166,3 +166,4 @@ cython_debug/
 *.tar.gz  
 *.zip
 data/
+secrets.*
