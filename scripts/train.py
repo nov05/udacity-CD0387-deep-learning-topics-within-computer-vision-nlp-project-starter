@@ -1,12 +1,13 @@
 ## TODO: Import your dependencies.
 ## For instance, below are some dependencies you might need if you are using Pytorch
-# import numpy as np
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torchvision
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
+from sklearn.utils.class_weight import compute_class_weight
 import os
 import wandb
 import argparse
@@ -76,7 +77,7 @@ def train(model, device, train_loader, criterion, optimizer, epoch, hook):
     print(f"👉 Train Epoch: {epoch}")
     for batch_idx, (data, target) in enumerate(train_loader):
         total_steps += 1
-        data, target = data.to(device), target.to(device)
+        data, target = data.to(device), target.to(device)  ## inputs, labels
         optimizer.zero_grad()
         output = model(data)
         loss = criterion(output, target)
@@ -112,12 +113,14 @@ def main(args):
     DEBUG = args.debug
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if args.use_cuda else "cpu"
     print(f"👉 Device: {device}")
+    
     transform = transforms.Compose([
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(15),
         # transforms.Resize(256),
         # transforms.CenterCrop(224),
         transforms.RandomResizedCrop(224),
+        transforms.ColorJitter(brightness=0.2, contrast=0.2),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])  
@@ -127,6 +130,11 @@ def main(args):
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
+    class_weights = compute_class_weight(
+        class_weight='balanced', 
+        classes=np.unique(train_dataset.targets), 
+        y=train_dataset.targets)
+    class_weights = torch.tensor(class_weights, dtype=torch.float32).to(device)
 
     ## TODO: Initialize a model by calling the net function
     model = net(args.model_name, len(train_dataset.classes))
@@ -139,8 +147,12 @@ def main(args):
         hook = smd.Hook.create_from_json_file()
         hook.register_hook(model)  
     ## TODO: Create your loss and optimizer
-    # criterion = nn.CrossEntropyLoss()
-    optimizer = optim.AdamW(model.parameters(), lr=args.learning_rate)  
+    # criterion = nn.CrossEntropyLoss() 
+    optimizer = optim.AdamW(
+        model.parameters(), 
+        lr=args.opt_learning_rate,
+        weight_decay=args.opt_weight_decay,
+    )  
     '''
     TODO: Call the train function to start training your model
           Remember that you will need to set up a way to get training data from S3
@@ -149,9 +161,9 @@ def main(args):
     # 5. Pass the SMDebug hook to the train and test functions. #
     # ===========================================================#
     for epoch in range(args.epochs):
-        criterion = nn.CrossEntropyLoss()  # loss per step
+        criterion = nn.CrossEntropyLoss(weight=class_weights)  # loss per step
         train(model, device, train_loader, criterion, optimizer, epoch, hook)
-        criterion = nn.CrossEntropyLoss(reduction="sum")  ## loss per epoch
+        criterion = nn.CrossEntropyLoss(weight=class_weights, reduction="sum")  ## loss per epoch
         test(model, device, val_loader, criterion, hook, phase='eval')
     ## TODO: Test the model to see its accuracy
     print("🟢 Start testing...")
@@ -171,7 +183,8 @@ if __name__=='__main__':
     # Hyperparameters passed by the SageMaker estimator
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--epochs', type=int, default=20)
-    parser.add_argument('--learning-rate', type=float, default=0.001)
+    parser.add_argument('--opt-learning-rate', type=float, default=1e-4)
+    parser.add_argument('--opt-weight-decay', type=float, default=1e-4)
     parser.add_argument('--use-cuda', type=bool, default=True)
     # Data, model, and output directories
     parser.add_argument('--model-name', type=str, default='resnet50')
