@@ -113,7 +113,7 @@ def main(args):
     DEBUG = args.debug
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if args.use_cuda else "cpu"
     print(f"👉 Device: {device}")
-    
+
     transform = transforms.Compose([
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(15),
@@ -172,7 +172,7 @@ def main(args):
     path = os.path.join(args.model_dir, 'model.pth')
     with open(path, 'wb') as f:
         torch.save(model.state_dict(), f)
-    print(f"👉 Model saved as '{path}'")
+    print(f"Model saved at '{path}'")
 
 
 
