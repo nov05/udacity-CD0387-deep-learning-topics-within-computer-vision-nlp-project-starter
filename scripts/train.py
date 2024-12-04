@@ -60,7 +60,7 @@ class EarlyStopping:
 
 
 def test(model, device, data_loader, criterion, 
-         config, step_counter, hook, early_stopping,
+         config, step_counter, early_stopping, hook,
          phase='eval'):
     '''
     TODO: Complete this function that can take a model and a 
@@ -142,6 +142,7 @@ def net(model_name, num_classes):
     '''
     model = getattr(torchvision.models, model_name)(pretrained=True)
     model.fc = nn.Linear(model.fc.in_features, num_classes)  # Adjust for the number of classes
+    torch.nn.init.kaiming_normal_(model.fc.weight)  # Initialize new layers
     return model
 
 

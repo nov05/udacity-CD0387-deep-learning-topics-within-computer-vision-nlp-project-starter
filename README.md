@@ -117,12 +117,43 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-03%2019_51_24-sagemaker-hpo%20_%20udacity-awsmle-resnet50-dog-breeds%20Workspace%20%E2%80%93%20Weights%20%26%20Biases.jpg" width=600>  
 
 ## 👉 Debugging and Profiling
-**TODO**: Give an overview of how you performed model debugging and profiling in Sagemaker
+
+* Give an overview of how you performed model debugging and profiling in Sagemaker
+
+  * Define debugging and profiling rules for analyzing training issues before a training run.  
+    ```python
+    rules = [
+        Rule.sagemaker(rule_configs.vanishing_gradient()),
+        Rule.sagemaker(rule_configs.overfit()),
+        Rule.sagemaker(rule_configs.overtraining()),
+        Rule.sagemaker(rule_configs.poor_weight_initialization()),
+        ProfilerRule.sagemaker(rule_configs.ProfilerReport()),
+    ]
+    hook_config = DebuggerHookConfig(
+        hook_parameters={
+            "train.save_interval": "100", 
+            "eval.save_interval": "10"
+        }
+    )
+    ```
+
+  * Once training is complete, SageMaker automatically generates detailed debugging and profiling reports, which you can view in the AWS Management Console or download for further analysis. These reports highlight potential issues, such as high latency or under-utilization of resources.  
 
 ### 🏷️ Results
-**TODO**: What are the results/insights did you get by profiling/debugging your model?
+  * What are the results/insights did you get by profiling/debugging your model?
 
-**TODO** Remember to provide the profiler html/pdf file in your submission.
+    * E.g. Got an error message debugging: `PoorWeightInitialization: IssuesFound`  
+      ```text
+      [12/04/24 02:10:21] WARNING  Job ended with status 'Stopped' rather than 'Completed'. This could    session.py:8593
+                                    mean the job timed out or stopped early for some other reason:                        
+                                    Consider checking whether it completed as you expect.   
+      ```
+      **Solution**: Initiate the fc layer explicitly.  
+      ```python
+      torch.nn.init.kaiming_normal_(model.fc.weight)  # Initialize new layers
+      ```
+
+  * Remember to provide the profiler html/pdf file in your submission.
 
 
 ## 👉 Model Deployment
