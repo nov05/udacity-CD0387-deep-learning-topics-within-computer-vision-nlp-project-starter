@@ -1,0 +1,11 @@
+2024-12-03 18:25:36 INFO Running runs: []
+2024-12-03 18:25:36 INFO Agent received command: run
+2024-12-03 18:25:36 INFO Agent starting run with config:
+	batch-size: 61
+	epochs: 32
+	model-name: resnet50
+	opt-learning-rate: 7.851525370598186e-05
+	opt-weight-decay: 0.00019540929068893127
+2024-12-03 18:25:36 INFO About to run command: python train.py --batch-size=61 --epochs=32 --model-name=resnet50 --opt-learning-rate=7.851525370598186e-05 --opt-weight-decay=0.00019540929068893127
+2024-12-03 18:25:41 INFO Running runs: ['o2y4k5q2']
+2024-12-03 18:25:41 INFO Cleaning up finished run: o2y4k5q2
