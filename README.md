@@ -81,17 +81,30 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 - Retrieve the best hyperparameters from all your training jobs   
 
-  ```python
-  from sagemaker.estimator import Estimator
-  from sagemaker.tuner import HyperparameterTuningJobAnalytics
-  tuning_job_name = "p3-dog-breeds-hpo-241203-0321"
-  hpo_analytics = HyperparameterTuningJobAnalytics(tuning_job_name, session)
-  best_training_job = hpo_analytics.best_training_job()
-  print("👉 Best training job:", best_training_job)
-  best_estimator = Estimator.attach(best_training_job)
-  print("👉 Best estimator hyperparameters:")
-  best_estimator().hyperparameters()
-  ```   
+    ```python
+    from sagemaker.estimator import Estimator
+    from sagemaker.tuner import HyperparameterTuningJobAnalytics
+    from pprint import pprint
+    tuning_job_name = "p3-dog-breeds-hpo-241203-0321"
+    hpo_analytics = HyperparameterTuningJobAnalytics(tuning_job_name, session)
+    df_tuning_results = hpo_analytics.dataframe()
+    best_training_job = df_tuning_results.sort_values('FinalObjectiveValue', ascending=True).iloc[0]
+    print("👉 Best training job hyperparameters:")
+    best_training_job
+    ```   
+    ```text
+    👉 Best training job hyperparameters:
+    batch-size                                                          "32"
+    epochs                                                              20.0
+    opt-learning-rate                                                0.00008
+    opt-weight-decay                                                0.000025
+    TrainingJobName               p3-dog-breeds-hpo-241203-0321-018-c70921b4
+    TrainingJobStatus                                              Completed
+    FinalObjectiveValue                                               0.8678
+    TrainingStartTime                              2024-12-03 10:04:43-06:00
+    TrainingEndTime                                2024-12-03 10:50:50-06:00
+    TrainingElapsedTimeSeconds                                        2767.0
+    ```
 
 🏷️ **W&B Sweep**  
 

@@ -20,13 +20,48 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True  # Allow truncated images
 # 1. Import SMDebug framework class.  #
 # ====================================#
 import smdebug.pytorch as smd
-DEBUG = False
-total_steps = int(0)
+
+
+class Config:
+    def __init__(self):
+        self.debug = False
+
+
+class StepCounter:
+    def __init__(self):
+        self.total_steps = 0
+    
+    def __call__(self):
+        self.total_steps += 1
+    
+    def reset(self):
+        self.total_steps = 0
+
+
+class EarlyStopping:
+    def __init__(self, patience=3, min_delta=0):
+        self.patience = patience
+        self.min_delta = min_delta
+        self.counter = 0
+        self.best_loss = None
+        self.early_stop = False
+
+    def __call__(self, val_loss):
+        if self.best_loss is None:
+            self.best_loss = val_loss
+        elif val_loss > self.best_loss - self.min_delta:
+            self.counter += 1
+            if self.counter >= self.patience:
+                self.early_stop = True
+        else:
+            self.best_loss = val_loss
+            self.counter = 0
 
 
 
-def test(model, device, data_loader, criterion, hook, phase='eval'):
-    global DEBUG, total_steps
+def test(model, device, data_loader, criterion, 
+         config, step_counter, hook, early_stopping,
+         phase='eval'):
     '''
     TODO: Complete this function that can take a model and a 
           testing data loader and will get the test accuray/loss of the model
@@ -35,7 +70,7 @@ def test(model, device, data_loader, criterion, hook, phase='eval'):
     # ===================================================#
     # 3. Set the SMDebug hook for the validation phase. #
     # ===================================================#
-    if DEBUG: hook.set_mode(smd.modes.EVAL)
+    if config.debug: hook.set_mode(smd.modes.EVAL)
     model.eval()
     test_loss = 0.
     correct = 0.
@@ -47,7 +82,9 @@ def test(model, device, data_loader, criterion, hook, phase='eval'):
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
     test_loss /= len(data_loader.dataset)
-    if phase=='eval': wandb.log({f"{phase}_loss_epoch": test_loss}, step=total_steps)
+    if phase=='eval': 
+        early_stopping(test_loss)
+        wandb.log({f"{phase}_loss_epoch": test_loss}, step=step_counter.total_steps)
     accuracy = 100.*correct/len(data_loader.dataset)
     print(
         "\n👉 {}: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n".format(
@@ -58,12 +95,13 @@ def test(model, device, data_loader, criterion, hook, phase='eval'):
             accuracy
         )
     )
-    if phase=='eval': wandb.log({f"{phase}_accuracy_epoch": accuracy}, step=total_steps)
+    if phase=='eval': 
+        wandb.log({f"{phase}_accuracy_epoch": accuracy}, step=step_counter.total_steps)
 
 
 
-def train(model, device, train_loader, criterion, optimizer, epoch, hook):
-    global DEBUG, total_steps
+def train(model, device, train_loader, criterion, optimizer, epoch, 
+          config, step_counter, hook):
     '''
     TODO: Complete this function that can take a model and
           data loaders for training and will get train the model
@@ -72,16 +110,16 @@ def train(model, device, train_loader, criterion, optimizer, epoch, hook):
     # =================================================#
     # 2. Set the SMDebug hook for the training phase. #
     # =================================================#
-    if DEBUG: hook.set_mode(smd.modes.TRAIN)
+    if config.debug: hook.set_mode(smd.modes.TRAIN)
     model.train()
     print(f"👉 Train Epoch: {epoch}")
     for batch_idx, (data, target) in enumerate(train_loader):
-        total_steps += 1
+        step_counter()
         data, target = data.to(device), target.to(device)  ## inputs, labels
         optimizer.zero_grad()
         output = model(data)
         loss = criterion(output, target)
-        wandb.log({"train_loss": loss.item()}, step=total_steps)
+        wandb.log({"train_loss": loss.item()}, step=step_counter.total_steps)
         loss.backward()
         optimizer.step()
         if batch_idx%100 == 0:
@@ -109,8 +147,10 @@ def net(model_name, num_classes):
 
 
 def main(args):
-    global DEBUG
-    DEBUG = args.debug
+    config = Config()
+    config.debug = args.debug
+    step_counter = StepCounter()
+    early_stopping = EarlyStopping()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if args.use_cuda else "cpu"
     print(f"👉 Device: {device}")
 
@@ -143,7 +183,7 @@ def main(args):
     # 4. Register the SMDebug hook to save output tensors.  #
     # ======================================================#
     hook = None
-    if DEBUG:
+    if config.debug:
         hook = smd.Hook.create_from_json_file()
         hook.register_hook(model)  
     ## TODO: Create your loss and optimizer
@@ -162,12 +202,20 @@ def main(args):
     # ===========================================================#
     for epoch in range(args.epochs):
         criterion = nn.CrossEntropyLoss(weight=class_weights)  # loss per step
-        train(model, device, train_loader, criterion, optimizer, epoch, hook)
+        train(model, device, train_loader, criterion, optimizer, epoch, 
+              config, step_counter, hook)
         criterion = nn.CrossEntropyLoss(weight=class_weights, reduction="sum")  ## loss per epoch
-        test(model, device, val_loader, criterion, hook, phase='eval')
+        test(model, device, val_loader, criterion, 
+             config, step_counter, early_stopping, hook, 
+             phase='eval')
+        if early_stopping.early_stop:
+            print("⚠️ Early stopping")
+            break
     ## TODO: Test the model to see its accuracy
     print("🟢 Start testing...")
-    test(model, device, test_loader, criterion, hook, phase='test')
+    test(model, device, test_loader, criterion, 
+         config, step_counter, early_stopping, hook, 
+         phase='test')
     ## TODO: Save the trained model
     path = os.path.join(args.model_dir, 'model.pth')
     with open(path, 'wb') as f:
