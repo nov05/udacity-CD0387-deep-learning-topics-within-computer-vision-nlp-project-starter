@@ -218,7 +218,40 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 ## **👉 Model Deployment**  
 
-* Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.  
+* Give an overview of the deployed model and instructions on how to query the endpoint with a sample input. 
+
+  * Check [the `deploy_scrpits/inference.py` file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py). There are 4 cunstion functions for inference endpoint to handle the models loading/prediction and data input/output: `model_fn()`, `input_fn()`, `predict_fn()`, `output_fn()`.    
+
+  * I decided to attach a JSON serializer and deserializer to the estimator. (I tried using the Identity serializer for image data in my last course project.)  
+
+    * Input data needs to be encoded probably before sending to the endpoint. 
+      ```python
+      with open(local_object, "rb") as f:
+        payload = json.dumps(
+            base64.b64encode(f.read()).decode('utf-8')
+        )
+      response = predictor.predict(payload)
+      ```
+    * In the input_fn(), input data needs to be decoded accordingly.   
+
+      ```python
+      data_bytes = base64.b64decode(
+        json.loads(input_data)
+      )
+      data_image = Image.open(BytesIO(data_bytes)).convert('RGB')  # Ensure 3-channel RGB
+      ```
+
+    * It is simpler for the output data. Here `prediction` is a list.
+
+      ```python
+      return json.dumps(prediction)
+      ```
+
+    * And the response of the predictor is a list. 
+     
+      ```python
+      response = predictor.predict(payload)
+      ```
 
   * You can either deploy an endpoint **from a training job**.   
 
@@ -253,7 +286,9 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     )
     ```
 
-* Remember to provide a screenshot of the deployed active endpoint in Sagemaker.
+* Remember to provide a screenshot of the deployed active endpoint in Sagemaker.  
+
+  <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/p3-dog-breed-classification_endpoint.jpg" width=600>  
 
 
 ## **⚠️ Clean Up Resources**   
@@ -311,3 +346,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 * Resources are cleaned up after tasks are completed to minimize costs.    
 
 * If I had more time, I would explore asynchronous inference, batch transformation, deploying multiple models with production variants, and using SageMaker Clarify, among other features.    
+
+* Checking [the official SageMaker documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) is a good practice.   
+
+<img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-06%2017_02_03-Settings-min.jpg" width=600>   
