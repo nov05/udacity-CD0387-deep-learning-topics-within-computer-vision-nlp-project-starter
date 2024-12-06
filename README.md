@@ -217,7 +217,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 * Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.  
 
-  * You can either deploy an endpoint from a training job.   
+  * You can either deploy an endpoint **from a training job**.   
 
     ```python
     training_job_name = "p3-dog-breeds-debug-20241204-124107" ## best test accuracy
@@ -231,7 +231,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     )
     ```
 
-  * Or deploy an endpoint from the trained model artifact (e.g. state dict, or `TorchScript` saved model).    
+  * Or deploy an endpoint **from a model artifact** (e.g. state dict, or `TorchScript` saved model).    
 
     ```python  
     model_s3_uri = r"s3://p3-dog-breed-image-classification/p3-dog-breeds-debug-20241204-124107/output/model.tar.gz"  
