@@ -1,10 +1,11 @@
 # **🟢 P3 Submission: Dog Breed Image Classification using AWS SageMaker**  
 
-This is the project folder for Project 3, Course 5 `Operationalizing Machine Learning on SageMaker`, [Udacity **AWS Machine Learning Engineer Nanodegree**](https://www.udacity.com/course/aws-machine-learning-engineer-nanodegree--nd189) (ND189). 
+This is the project folder for Project 3 `Dog Breed Image Classification`, Course 5 `Operationalizing Machine Learning on SageMaker`, [Udacity **AWS Machine Learning Engineer Nanodegree**](https://www.udacity.com/course/aws-machine-learning-engineer-nanodegree--nd189) (ND189). 
 
 Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This can be done on either [the provided dog breed classication data set](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) or one of your choice.
 
-## Project Set Up and Installation
+## **Project Set Up and Installation**     
+
 Enter AWS through the gateway in the course and open SageMaker Studio. 
 Download the starter files.
 Download/Make the dataset available.   
@@ -13,7 +14,7 @@ Download/Make the dataset available.
 
   * For this project, I used `SageMaker` locally in `VS Code` for a better IDE experience. However, the debugging and profiling reports were generated in `AWS SageMaker Studio`, as the libraries didn’t seem to work properly in the local environment.     
 
-    * [Set up the local conda env `awsmle_py310`](https://gist.github.com/nov05/d9c3be6c2ab9f6c050e3d988830db08b) (without `CUDA`, as all the jobs were executed on `AWS`)     
+    * Set up [the local conda env `awsmle_py310`](https://gist.github.com/nov05/d9c3be6c2ab9f6c050e3d988830db08b) (without `CUDA`, as all the jobs were executed on `AWS`)     
 
   * The major training and deployment scripts are organized in the following code structure:    
     ```text
@@ -69,7 +70,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 ## **👉 Hyperparameter Tuning**  
 
-🏷️ Check [the train-hpo-debug-deploy notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb)  
+🏷️ Check [02.train_hpo_debug_deploy.ipynb](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb)  
 
 🏷️ What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
 
@@ -172,11 +173,12 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 
 
-## 👉 Debugging and Profiling
+## **👉 Debugging and Profiling**  
 
 * Give an overview of how you performed model debugging and profiling in Sagemaker
 
-  * Define debugging and profiling rules for analyzing training issues before a training run.  
+  * Define debugging and profiling rules for analyzing training issues before a training run.   
+
     ```python
     rules = [
         Rule.sagemaker(rule_configs.vanishing_gradient()),
@@ -196,7 +198,8 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   * Once training job is complete, SageMaker automatically generates detailed debugging and profiling reports, which you can view in the AWS Management Console or download for further analysis. These reports highlight potential issues, such as high latency or under-utilization of resources.  
 
 
-### 🏷️ Results
+### 🏷️ Results  
+
   * What are the results/insights did you get by profiling/debugging your model?
 
     * E.g. Got an warning message when debugging: `PoorWeightInitialization: IssuesFound`   
@@ -213,7 +216,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   * Remember to provide the profiler html/pdf file in your submission.
 
 
-## 👉 Model Deployment
+## **👉 Model Deployment**  
 
 * Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.  
 
@@ -252,5 +255,59 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 * Remember to provide a screenshot of the deployed active endpoint in Sagemaker.
 
-## Standout Suggestions
-**TODO (Optional):** This is where you can provide information about any standout suggestions that you have attempted.
+
+## **⚠️ Clean Up Resources**   
+
+* Delete endpoint model and endpoint   
+
+  ```python
+  import boto3
+  ## delete the endpoint model
+  sm_client = boto3.client('sagemaker')
+  endpoint_info = sm_client.describe_endpoint(EndpointName=predictor.endpoint_name)
+  endpoint_config_name = endpoint_info['EndpointConfigName']
+  endpoint_config_info = sm_client.describe_endpoint_config(EndpointConfigName=endpoint_config_name)
+  model_name = endpoint_config_info['ProductionVariants'][0]['ModelName']
+  sm_client.delete_model(ModelName=model_name)
+  print("🟢 Model deleted:", model_name)
+  ## delete the endpoint
+  predictor.delete_endpoint()
+  print("🟢 Endpoint deleted:", predictor.endpoint_name)
+  ```
+
+* Delete job outputs in an S3 bucket if no longer needed
+  ```python
+  ## clear the sagemaker default bucket where stores the deployable model created by the endpoint
+  !aws s3 rm s3://sagemaker-us-east-1-852125600954 --recursive
+  ```
+
+* Delete endpoint log streams 
+  ```python 
+  import boto3
+  def delete_log_streams(s3_client_logs, log_group_name):
+      # Retrieve log streams from the specified log group
+      log_streams = s3_client_logs.describe_log_streams(logGroupName=log_group_name)
+      # Iterate through each log stream and delete it
+      for stream in log_streams['logStreams']:
+          log_stream_name = stream['logStreamName']
+          print(f"Deleting log stream: {log_stream_name}...")
+          s3_client_logs.delete_log_stream(logGroupName=log_group_name, logStreamName=log_stream_name)
+      print(f"🟢 All log streams deleted from log group: {log_group_name}")
+
+  s3_client_logs = boto3.client('logs')
+  log_group_name = "/aws/sagemaker/Endpoints/p3-dog-breed-classification"
+  delete_log_streams(s3_client_logs, log_group_name)  
+  ```
+
+
+## 🟢 Standout Suggestions  
+
+**TODO (Optional):** This is where you can provide information about any standout suggestions that you have attempted.  
+
+* W&B logging and sweeps are incorporated to gain better insights into the importance of hyperparameters and to explore their potential range.     
+
+* All operations, except for generating debugging and profiling reports, are executed locally using Python code and `AWS CLI`. This significantly improved workflow automation and reduced the costs associated with `SageMaker Studio`.  
+
+* Resources are cleaned up after tasks are completed to minimize costs.    
+
+* If I had more time, I would explore asynchronous inference, batch transformation, deploying multiple models with production variants, and using SageMaker Clarify, among other features.    
