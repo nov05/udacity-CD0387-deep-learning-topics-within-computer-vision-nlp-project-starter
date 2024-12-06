@@ -15,7 +15,7 @@ Download/Make the dataset available.
 
     * [Set up the local conda env `awsmle_py310`](https://gist.github.com/nov05/d9c3be6c2ab9f6c050e3d988830db08b) (without `CUDA`, as all the jobs were executed on `AWS`)     
 
-  * The training and deployment scripts are organized in the following code structure:    
+  * The major training and deployment scripts are organized in the following code structure:    
     ```text
     repo/  
     │  
