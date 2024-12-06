@@ -1,4 +1,6 @@
-# **Image Classification using AWS SageMaker**
+# **🟢 P3 Submission: Dog Breed Image Classification using AWS SageMaker**  
+
+This is the project folder for Project 3, Course 5 `Operationalizing Machine Learning on SageMaker`, [Udacity **AWS Machine Learning Engineer Nanodegree**](https://www.udacity.com/course/aws-machine-learning-engineer-nanodegree--nd189) (ND189). 
 
 Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This can be done on either [the provided dog breed classication data set](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) or one of your choice.
 
@@ -7,15 +9,39 @@ Enter AWS through the gateway in the course and open SageMaker Studio.
 Download the starter files.
 Download/Make the dataset available.   
 
-  * Check [the Google Docs notes](https://docs.google.com/document/d/1OvnsKYyGk-ww8NVl7hdQxXkUAjU8WvIuTo9pzTLv2Ls/).
+  * Check [the Google Docs notes](https://docs.google.com/document/d/1OvnsKYyGk-ww8NVl7hdQxXkUAjU8WvIuTo9pzTLv2Ls/).  
+
+  * For this project, I used `SageMaker` locally in `VS Code` for a better IDE experience. However, the debugging and profiling reports were generated in `AWS SageMaker Studio`, as the libraries didn’t seem to work properly in the local environment.     
+
+    * [Set up the local conda env `awsmle_py310`](https://gist.github.com/nov05/d9c3be6c2ab9f6c050e3d988830db08b) (without `CUDA`, as all the jobs were executed on `AWS`)     
+
+  * The training and deployment scripts are organized in the following code structure:    
+    ```text
+    repo/  
+    │  
+    ├── 02.train_hpo_debug_deploy.ipynb (this notebook)  
+    ├── scripts/  
+    │   ├── train.py  
+    │   └── requirements.txt    
+    └── deploy_scripts/   
+        └── inference.py       
+    ```
 
 
-## 👉 Dataset
-The provided dataset is [the dogbreed classification dataset](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) which can be found in the classroom.
-The project is designed to be dataset independent so if there is a dataset that is more interesting or relevant to your work, you are welcome to use it to complete the project.
+## **👉 Dataset**  
 
-* Simple data exploration ([notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/00.EDA.ipynb))  
-  * Download two pictures to local and display them  
+The provided dataset is [the dogbreed classification dataset](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) which can be found in the classroom.  
+
+~~The project is designed to be dataset independent so if there is a dataset that is more interesting or relevant to your work, you are welcome to use it to complete the project.~~
+
+* Simple data exploration ([notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/00.EDA.ipynb))   
+
+  * There are **a total of 8,351 images**, already divided into train, validation, and test sets: 6,680 for training, 835 for validation, and 836 for testing. While this dataset may not be large enough to train a deep learning model from scratch, it should be sufficient for fine-tuning a pretrained model, like ResNet50. 
+
+    So far, the best test accuracy I've achieved is **80.62%**, which indicates that adding more training data could help improve performance. However, since I don't have the time to do that, we'll stick with the current dataset for this project.
+
+  * Download two images locally and display them to get a better feel for the data.      
+
   * There are **133 classes** (133 dog breeds) and there is data imbalance. In the [`scripts/train.py`](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/scripts/train.py) file, `class weights` are added to the loss function. And two test runs show that it improves the accuracy from 74% to 79% for `ResNet50`.  
     ```python
     class_weights = compute_class_weight(
@@ -26,7 +52,8 @@ The project is designed to be dataset independent so if there is a dataset that 
     criterion = nn.CrossEntropyLoss(weight=class_weights)  
     ```
 
-### 🏷️ Access
+### 🏷️ Access  
+
 Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has access to the data. 
 * Added `AmazonS3FullAccess` permission to the SageMaker execution role.  
 
@@ -38,9 +65,11 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-02%2018_20_10-p3-dog-breed-classification%20-%20S3%20bucket%20_%20S3%20_%20us-east-1.jpg" width=600>  
 
-## 👉 Hyperparameter Tuning  
 
-🏷️ Check [the notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_and_deploy.ipynb)  
+
+## **👉 Hyperparameter Tuning**  
+
+🏷️ Check [the train-hpo-debug-deploy notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb)  
 
 🏷️ What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
 
@@ -106,8 +135,30 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     TrainingElapsedTimeSeconds                                        2767.0
     ```
 
-* The project budget is $25, so it's not ideal to run extensive hyperparameter optimization jobs on a GPU instance.   
+
+* The project budget is $25, so it's not ideal to run extensive hyperparameter optimization jobs on a GPU instance.  
+
   <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-03%2021_48_02-Amazon%20SageMaker%20AI%20_%20us-east-1.jpg.jpg" width=600>   
+
+
+* 🟢 Because of the AWS budget limit, the HPO job didn’t yield optimal results. So, I manually tuned the parameters and achieved a **test accuracy of 80.62%**. You can [check the W&B logs for details](https://wandb.ai/nov05/udacity-awsmle-resnet50-dog-breeds/runs/p3-dog-breeds-debug-20241204-124107-o6xu9g-algo-1?nw=nwusernov05). I used the following hyperparameters, implemented **early stopping** (if the evaluation loss didn’t decrease for 5 epochs), and added a **learning rate scheduler** that reduced the optimizer’s LR by half every 6 epochs (`torch.optim.AdamW` and `torch.optim.lr_scheduler.StepLR`). 
+
+  ```text 
+  TrainingJobName: p3-dog-breeds-debug-20241204-124107 
+  hyperparameters = {
+      'epochs': 40,              ## trained 21 epochs
+      'batch-size': 32,   
+      'opt-learning-rate': 8e-5,  
+      'opt-weight-decay': 1e-5,  
+      'lr-sched-step-size': 6,   ## by epoch
+      'lr-sched-gamma': 0.5,
+      'early-stopping': 5,
+      'model-type': 'resnet50',  ## pre-trained
+      'debug': True,  
+  } 
+  ```
+  <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-06%2013_11_35-Settings_best%20score.jpg" width=600>  
+
 
 🏷️ **W&B Sweep**  
 
@@ -118,6 +169,8 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-03%2019_24_26-sagemaker-hpo%20_%20udacity-awsmle-resnet50-dog-breeds%20Workspace%20%E2%80%93%20Weights%20%26%20Biases.jpg" width=600>  
 
     <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-03%2019_51_24-sagemaker-hpo%20_%20udacity-awsmle-resnet50-dog-breeds%20Workspace%20%E2%80%93%20Weights%20%26%20Biases.jpg" width=600>  
+
+
 
 ## 👉 Debugging and Profiling
 
@@ -140,12 +193,13 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     )
     ```
 
-  * Once training is complete, SageMaker automatically generates detailed debugging and profiling reports, which you can view in the AWS Management Console or download for further analysis. These reports highlight potential issues, such as high latency or under-utilization of resources.  
+  * Once training job is complete, SageMaker automatically generates detailed debugging and profiling reports, which you can view in the AWS Management Console or download for further analysis. These reports highlight potential issues, such as high latency or under-utilization of resources.  
+
 
 ### 🏷️ Results
   * What are the results/insights did you get by profiling/debugging your model?
 
-    * E.g. Got an error message debugging: `PoorWeightInitialization: IssuesFound`  
+    * E.g. Got an warning message when debugging: `PoorWeightInitialization: IssuesFound`   
       ```text
       [12/04/24 02:10:21] WARNING  Job ended with status 'Stopped' rather than 'Completed'. This could    session.py:8593
                                     mean the job timed out or stopped early for some other reason:                        
@@ -161,7 +215,40 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 ## 👉 Model Deployment
 
-* Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
+* Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.  
+
+  * You can either deploy an endpoint from a training job.   
+
+    ```python
+    training_job_name = "p3-dog-breeds-debug-20241204-124107" ## best test accuracy
+    estimator = PyTorch.attach(training_job_name)
+    predictor=estimator.deploy(
+        initial_instance_count=1,
+        instance_type="ml.m5.large", ## "ml.m5.xlarge", "ml.g4dn.xlarge"
+        endpoint_name="p3-dog-breed-classification",  ## ⚠️ naming conventions
+        entry_point="inference.py",  # Reference to your inference.py
+        source_dir="deploy_scripts"         # Directory containing inference.py
+    )
+    ```
+
+  * Or deploy an endpoint from the trained model artifact (e.g. state dict, or `TorchScript` saved model).    
+
+    ```python  
+    model_s3_uri = r"s3://p3-dog-breed-image-classification/p3-dog-breeds-debug-20241204-124107/output/model.tar.gz"  
+    pytorch_model = PyTorchModel(
+        model_data=model_s3_uri,   # Path to the S3 model file
+        role=role_arn,            
+        framework_version='1.10',    # Adjust the PyTorch version as needed
+        py_version='py38',           # Python version (adjust if necessary)
+        entry_point='inference.py',  # Inference script for loading and predicting (see details below)
+        source_dir="deploy_scripts",         # Directory containing inference.py
+    )
+    predictor = pytorch_model.deploy(
+        initial_instance_count=1,
+        instance_type='ml.m5.large',  # You can adjust the instance type based on your needs
+        endpoint_name='p3-dog-breed-classification',
+    )
+    ```
 
 * Remember to provide a screenshot of the deployed active endpoint in Sagemaker.
 

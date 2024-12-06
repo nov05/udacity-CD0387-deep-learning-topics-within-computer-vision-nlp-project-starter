@@ -218,8 +218,10 @@ def main(args):
         lr=args.opt_learning_rate,
         weight_decay=args.opt_weight_decay,
     )  
-    scheduler = torch.optim.lr_scheduler.StepLR(
-        optimizer, step_size=6, gamma=0.5)  # Reduce LR every 6 epochs by 0.5
+    scheduler = optim.lr_scheduler.StepLR(
+        optimizer, 
+        step_size=args.lr_sched_step_size, 
+        gamma=args.lr_sched_gamma)  # Reduce LR every 6 epochs by 0.5
     '''
     TODO: Call the train function to start training your model
           Remember that you will need to set up a way to get training data from S3
@@ -258,7 +260,10 @@ if __name__=='__main__':
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--epochs', type=int, default=20)
     parser.add_argument('--opt-learning-rate', type=float, default=1e-4)
-    parser.add_argument('--opt-weight-decay', type=float, default=1e-4)
+    parser.add_argument('--opt-weight-decay', type=float, default=1e-4)  
+    parser.add_argument('--lr-sched-step-size', type=int, default=6)  
+    parser.add_argument('--lr-sched-gamma', type=float, default=0.5)  
+    parser.add_argument('--early-stopping', type=int, default=5)  
     parser.add_argument('--use-cuda', type=bool, default=True)
     # Data, model, and output directories
     parser.add_argument('--model-type', type=str, default='resnet50')
@@ -269,7 +274,6 @@ if __name__=='__main__':
     parser.add_argument('--test', type=str, default=os.environ['SM_CHANNEL_TEST'])
     ## Others
     parser.add_argument('--debug', type=str, default=False)
-    parser.add_argument('--early-stopping', type=int, default=5)
     wandb.init(
         # set the wandb project where this run will be logged
         project="udacity-awsmle-resnet50-dog-breeds",
