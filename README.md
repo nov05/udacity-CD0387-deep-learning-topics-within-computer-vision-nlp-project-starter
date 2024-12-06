@@ -106,6 +106,9 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     TrainingElapsedTimeSeconds                                        2767.0
     ```
 
+* The project budget is $25, so it's not ideal to run extensive hyperparameter optimization jobs on a GPU instance.   
+  <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-03%2021_48_02-Amazon%20SageMaker%20AI%20_%20us-east-1.jpg.jpg" width=600>   
+
 🏷️ **W&B Sweep**  
 
 * W&B Sweep is somewhat similar to AWS SageMaker HPO, but W&B stands out by offering intuitive visual tools that help us understand how different hyperparameters impact training metrics. For instance, from the screenshots, we can infer that the optimizer's learning rate is likely the most significant hyperparameter, with an optimal value around 8e-5. Additionally, it seems best to keep the optimizer's weight decay very small.
@@ -157,9 +160,10 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 
 ## 👉 Model Deployment
-**TODO**: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
 
-**TODO** Remember to provide a screenshot of the deployed active endpoint in Sagemaker.
+* Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
+
+* Remember to provide a screenshot of the deployed active endpoint in Sagemaker.
 
 ## Standout Suggestions
 **TODO (Optional):** This is where you can provide information about any standout suggestions that you have attempted.

@@ -125,7 +125,7 @@ def main():
     model = Net()
 
     # ======================================================#
-    # 4. Register the SMDebug hook to save output tensors. #
+    # 4. Register the SMDebug hook to save output tensors.  #
     # ======================================================#
     hook = smd.Hook.create_from_json_file()
     hook.register_hook(model)

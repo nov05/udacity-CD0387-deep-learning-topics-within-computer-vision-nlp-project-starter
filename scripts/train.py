@@ -11,7 +11,6 @@ from sklearn.utils.class_weight import compute_class_weight
 import os
 import wandb
 import argparse
-from datetime import datetime
 
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True  # Allow truncated images
@@ -19,7 +18,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True  # Allow truncated images
 # ====================================#
 # 1. Import SMDebug framework class.  #
 # ====================================#
-import smdebug.pytorch as smd
+# import smdebug.pytorch as smd
 
 
 class Config:
@@ -135,23 +134,48 @@ def train(model, device, train_loader, criterion, optimizer, epoch,
 
 
 
-def net(model_name, num_classes):
+def net(model_type, num_classes):
     '''
     TODO: Complete this function that initializes your model
           Remember to use a pretrained model
     '''
-    model = getattr(torchvision.models, model_name)(pretrained=True)
+    # model = getattr(torchvision.models, model_type)(weights='DEFAULT')
+    model = getattr(torchvision.models, model_type)(pretrained=True)
     model.fc = nn.Linear(model.fc.in_features, num_classes)  # Adjust for the number of classes
     torch.nn.init.kaiming_normal_(model.fc.weight)  # Initialize new layers
     return model
 
 
 
+def save(model, model_dir, model_name='model.pt'):
+    ## ⚠️ Please ensure model is saved using torchscript.
+    ## https://pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html
+    model.eval()
+    path = os.path.join(model_dir, model_name)
+    '''
+    ## save model weights
+    with open(path, 'wb') as f:
+        torch.save(model.state_dict(), f)
+    ## If your model is simple and has a straightforward forward pass, use torch.jit.trace
+    example_input = torch.randn(1, 3, 224, 224)
+    traced_model = torch.jit.trace(model, example_input)
+    traced_model.save(path)
+    '''
+    ## If your model has dynamic control flow (like if statements based on input), 
+    ## use torch.jit.script
+    scripted_model = torch.jit.script(model)
+    scripted_model.save(path) 
+    print(f"Model saved at '{path}'")
+
+
+
 def main(args):
     config = Config()
     config.debug = args.debug
+    if config.debug:
+        import smdebug.pytorch as smd
     step_counter = StepCounter()
-    early_stopping = EarlyStopping()
+    early_stopping = EarlyStopping(args.early_stopping)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if args.use_cuda else "cpu"
     print(f"👉 Device: {device}")
 
@@ -194,6 +218,8 @@ def main(args):
         lr=args.opt_learning_rate,
         weight_decay=args.opt_weight_decay,
     )  
+    scheduler = torch.optim.lr_scheduler.StepLR(
+        optimizer, step_size=6, gamma=0.5)  # Reduce LR every 6 epochs by 0.5
     '''
     TODO: Call the train function to start training your model
           Remember that you will need to set up a way to get training data from S3
@@ -212,16 +238,15 @@ def main(args):
         if early_stopping.early_stop:
             print("⚠️ Early stopping")
             break
+        scheduler.step()  ## Update learning rate after every epoch
+        print(f"👉 Train Epoch: {epoch+1}, Learning rate: {optimizer.param_groups[0]['lr']}")
     ## TODO: Test the model to see its accuracy
     print("🟢 Start testing...")
     test(model, device, test_loader, criterion, 
          config, step_counter, early_stopping, hook, 
          phase='test')
     ## TODO: Save the trained model
-    path = os.path.join(args.model_dir, 'model.pth')
-    with open(path, 'wb') as f:
-        torch.save(model.state_dict(), f)
-    print(f"Model saved at '{path}'")
+    save(model, args.model_dir)
 
 
 
@@ -236,7 +261,7 @@ if __name__=='__main__':
     parser.add_argument('--opt-weight-decay', type=float, default=1e-4)
     parser.add_argument('--use-cuda', type=bool, default=True)
     # Data, model, and output directories
-    parser.add_argument('--model-name', type=str, default='resnet50')
+    parser.add_argument('--model-type', type=str, default='resnet50')
     parser.add_argument('--model-dir', type=str, default=os.environ['SM_MODEL_DIR'])
     parser.add_argument('--output-data-dir', type=str, default=os.environ['SM_OUTPUT_DATA_DIR'])
     parser.add_argument('--train', type=str, default=os.environ['SM_CHANNEL_TRAIN'])
@@ -244,6 +269,7 @@ if __name__=='__main__':
     parser.add_argument('--test', type=str, default=os.environ['SM_CHANNEL_TEST'])
     ## Others
     parser.add_argument('--debug', type=str, default=False)
+    parser.add_argument('--early-stopping', type=int, default=5)
     wandb.init(
         # set the wandb project where this run will be logged
         project="udacity-awsmle-resnet50-dog-breeds",
