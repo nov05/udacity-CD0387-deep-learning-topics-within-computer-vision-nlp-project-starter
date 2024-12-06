@@ -248,7 +248,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
       ```
 
     * And the response of the predictor is a list. 
-     
+
       ```python
       response = predictor.predict(payload)
       ```
@@ -349,4 +349,4 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 * Checking [the official SageMaker documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) is a good practice.   
 
-<img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-06%2017_02_03-Settings-min.jpg" width=600>   
+  <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-06%2017_02_03-Settings-min.jpg" width=600>   
