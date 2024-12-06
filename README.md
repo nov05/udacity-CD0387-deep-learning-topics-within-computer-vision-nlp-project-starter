@@ -19,7 +19,7 @@ Download/Make the dataset available.
     ```text
     repo/  
     │  
-    ├── 02.train_hpo_debug_deploy.ipynb (this notebook)  
+    ├── 02.train_hpo_debug_deploy.ipynb   
     ├── scripts/  
     │   ├── train.py  
     │   └── requirements.txt    
