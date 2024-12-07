@@ -152,16 +152,16 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 <br>  
 
-* 🟢 Because of the AWS budget limit, the HPO job didn’t yield optimal results. So, I manually tuned the parameters and achieved a **test accuracy of 91.39%** in 16 epochs (43 minutes) on `ml.g4dn.xlarge`. You can [check the W&B logs for details](https://wandb.ai/nov05/udacity-awsmle-resnet50-dog-breeds/runs/p3-dog-breeds-debug-20241204-124107-o6xu9g-algo-1?nw=nwusernov05). I used the following hyperparameters, implemented **early stopping** (if the evaluation loss didn’t decrease for 5 epochs), and added a **learning rate scheduler** that reduced the optimizer’s LR by half every 5 epochs (`torch.optim.AdamW` and `torch.optim.lr_scheduler.StepLR`). 
+* 🟢 Because of the AWS budget limit, the HPO job didn’t yield optimal results. So, I manually tuned the parameters and achieved a **test accuracy of 91.39%** in 16 epochs (43 minutes) on `ml.g4dn.xlarge`. You can [check the W&B logs for details](https://wandb.ai/nov05/udacity-awsmle-resnet50-dog-breeds/runs/p3-dog-breeds-job-20241207-112640-958tti-algo-1?nw=nwusernov05). I used the following hyperparameters, implemented **early stopping** (if the evaluation loss didn’t decrease for 5 epochs), and added a **learning rate scheduler** that reduced the optimizer’s LR by half every 5 epochs (`torch.optim.AdamW` and `torch.optim.lr_scheduler.StepLR`). 
 
   ```text 
   TrainingJobName: p3-dog-breeds-debug-20241204-124107 
   hyperparameters = {
-      'epochs': 40,              ## trained 21 epochs
+      'epochs': 40,  ## trained 16 epochs
       'batch-size': 32,   
       'opt-learning-rate': 8e-5,  
       'opt-weight-decay': 1e-5,  
-      'lr-sched-step-size': 5,   ## by epoch
+      'lr-sched-step-size': 5,  ## by epoch
       'lr-sched-gamma': 0.5,
       'early-stopping-patience': 5,
       'model-type': 'resnet50',  ## pre-trained
@@ -192,10 +192,12 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
     ```python
     rules = [
+        Rule.sagemaker(rule_configs.poor_weight_initialization()),
         Rule.sagemaker(rule_configs.vanishing_gradient()),
         Rule.sagemaker(rule_configs.overfit()),
         Rule.sagemaker(rule_configs.overtraining()),
-        Rule.sagemaker(rule_configs.poor_weight_initialization()),
+        Rule.sagemaker(rule_configs.loss_not_decreasing()),
+        ProfilerRule.sagemaker(rule_configs.LowGPUUtilization()),
         ProfilerRule.sagemaker(rule_configs.ProfilerReport()),
     ]
     hook_config = DebuggerHookConfig(
@@ -205,6 +207,9 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
         }
     )
     ```
+
+  * SageMaker creats processing jobs according to the rules. In my case, there is a limit of 10 jobs that can run simultaneously at the account level.   
+    <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-07%2003_42_35-Amazon%20SageMaker%20AI%20_%20us-east-1.jpg" width=600>  
 
   * Once training job is complete, SageMaker automatically generates detailed debugging and profiling reports, which you can view in the AWS Management Console or download for further analysis. These reports highlight potential issues, such as high latency or under-utilization of resources.  
 
