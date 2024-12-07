@@ -21,9 +21,11 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True  # Allow truncated images
 # import smdebug.pytorch as smd
 
 
+
 class Config:
     def __init__(self):
         self.debug = False
+
 
 
 class StepCounter:
@@ -35,6 +37,7 @@ class StepCounter:
     
     def reset(self):
         self.total_steps = 0
+
 
 
 class EarlyStopping:
@@ -179,19 +182,27 @@ def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if args.use_cuda else "cpu"
     print(f"👉 Device: {device}")
 
-    transform = transforms.Compose([
+    train_transform = transforms.Compose([
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(15),
-        # transforms.Resize(256),
-        # transforms.CenterCrop(224),
         transforms.RandomResizedCrop(224),
-        transforms.ColorJitter(brightness=0.2, contrast=0.2),
+        transforms.ColorJitter(brightness=0.2, 
+                               contrast=0.2),
         transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+                             std=[0.229, 0.224, 0.225]),
     ])  
-    train_dataset = datasets.ImageFolder(args.train, transform=transform)
-    val_dataset = datasets.ImageFolder(args.validation, transform=transform)
-    test_dataset = datasets.ImageFolder(args.test, transform=transform)
+    val_transform = transforms.Compose([
+        # transforms.Resize((224, 224)),
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], 
+                             std=[0.229, 0.224, 0.225]),
+    ]) 
+    train_dataset = datasets.ImageFolder(args.train, transform=train_transform)
+    val_dataset = datasets.ImageFolder(args.validation, transform=val_transform)
+    test_dataset = datasets.ImageFolder(args.test, transform=val_transform)
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False)
@@ -255,8 +266,9 @@ def main(args):
 if __name__=='__main__':
 
 
+
     parser=argparse.ArgumentParser()
-    # Hyperparameters passed by the SageMaker estimator
+    ## Hyperparameters passed by the SageMaker estimator
     parser.add_argument('--batch-size', type=int, default=64)
     parser.add_argument('--epochs', type=int, default=20)
     parser.add_argument('--opt-learning-rate', type=float, default=1e-4)
@@ -265,7 +277,7 @@ if __name__=='__main__':
     parser.add_argument('--lr-sched-gamma', type=float, default=0.5)  
     parser.add_argument('--early-stopping', type=int, default=5)  
     parser.add_argument('--use-cuda', type=bool, default=True)
-    # Data, model, and output directories
+    ## Data, model, and output directories
     parser.add_argument('--model-type', type=str, default='resnet50')
     parser.add_argument('--model-dir', type=str, default=os.environ['SM_MODEL_DIR'])
     parser.add_argument('--output-data-dir', type=str, default=os.environ['SM_OUTPUT_DATA_DIR'])
@@ -275,7 +287,7 @@ if __name__=='__main__':
     ## Others
     parser.add_argument('--debug', type=str, default=False)
     wandb.init(
-        # set the wandb project where this run will be logged
+        ## set the wandb project where this run will be logged
         project="udacity-awsmle-resnet50-dog-breeds",
         config=vars(parser.parse_args())
     )

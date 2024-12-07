@@ -232,7 +232,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
         )
       response = predictor.predict(payload)
       ```
-    * In the input_fn(), input data needs to be decoded accordingly.   
+    * In the `input_fn()`, input data needs to be decoded accordingly.   
 
       ```python
       data_bytes = base64.b64decode(
