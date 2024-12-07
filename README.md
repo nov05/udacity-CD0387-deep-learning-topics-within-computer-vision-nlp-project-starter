@@ -4,7 +4,9 @@ This is the project folder for Project 3 `Dog Breed Image Classification`, Cours
 
 Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This can be done on either [the provided dog breed classication data set](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) or one of your choice.
 
-## **Project Set Up and Installation**     
+<br>  
+
+## **👉 Project Set Up and Installation**     
 
 Enter AWS through the gateway in the course and open SageMaker Studio. 
 Download the starter files.
@@ -28,6 +30,7 @@ Download/Make the dataset available.
         └── inference.py       
     ```
 
+<br>
 
 ## **👉 Dataset**  
 
@@ -53,6 +56,8 @@ The provided dataset is [the dogbreed classification dataset](https://s3-us-west
     criterion = nn.CrossEntropyLoss(weight=class_weights)  
     ```
 
+<br>  
+
 ### 🏷️ Access  
 
 Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has access to the data. 
@@ -66,17 +71,21 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-02%2018_20_10-p3-dog-breed-classification%20-%20S3%20bucket%20_%20S3%20_%20us-east-1.jpg" width=600>  
 
-
+<br>  
 
 ## **👉 Hyperparameter Tuning**  
 
 🏷️ Check [02.train_hpo_debug_deploy.ipynb](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb)  
+
+<br>  
 
 🏷️ What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
 
 * The train/val/test dataset contains **8,351 images**, which, while not very large, is sufficient for fine-tuning a pre-trained model. We want the model to be deep enough to capture complex patterns but not so deep that it becomes overly computationally expensive. [The baseline results](https://wandb.ai/nov05/udacity-awsmle-resnet50-dog-breeds/reports/ResNet50-101-152-Baselines-on-Dog-Breed-Classification--VmlldzoxMDQzNDI2Nw) show that the performance of `ResNet-50` ([notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/01.simple_train_resnet50.ipynb)), `ResNet-101` ([notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/01.simple_train_resnet101.ipynb)), and `ResNet-152` ([notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/01.simple_train_resnet152.ipynb)) are quite similar. Therefore, we chose ResNet-50, as it strikes a good balance between computational efficiency and model depth, making it more practical for both training and deployment.
 
   <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-02%2022_50_56-ResNet50_101_152%20Baselines%20on%20Dog%20Breed%20Classification%20_%20udacity-awsmle-resnet50.jpg" width=600>
+
+<br>  
 
 🏷️ Remember that your README should:   
 
@@ -141,8 +150,9 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-03%2021_48_02-Amazon%20SageMaker%20AI%20_%20us-east-1.jpg.jpg" width=600>   
 
+<br>  
 
-* 🟢 Because of the AWS budget limit, the HPO job didn’t yield optimal results. So, I manually tuned the parameters and achieved a **test accuracy of 80.62%**. You can [check the W&B logs for details](https://wandb.ai/nov05/udacity-awsmle-resnet50-dog-breeds/runs/p3-dog-breeds-debug-20241204-124107-o6xu9g-algo-1?nw=nwusernov05). I used the following hyperparameters, implemented **early stopping** (if the evaluation loss didn’t decrease for 5 epochs), and added a **learning rate scheduler** that reduced the optimizer’s LR by half every 6 epochs (`torch.optim.AdamW` and `torch.optim.lr_scheduler.StepLR`). 
+* 🟢 Because of the AWS budget limit, the HPO job didn’t yield optimal results. So, I manually tuned the parameters and achieved a **test accuracy of 91.39%** in 16 epochs (43 minutes) on `ml.g4dn.xlarge`. You can [check the W&B logs for details](https://wandb.ai/nov05/udacity-awsmle-resnet50-dog-breeds/runs/p3-dog-breeds-debug-20241204-124107-o6xu9g-algo-1?nw=nwusernov05). I used the following hyperparameters, implemented **early stopping** (if the evaluation loss didn’t decrease for 5 epochs), and added a **learning rate scheduler** that reduced the optimizer’s LR by half every 5 epochs (`torch.optim.AdamW` and `torch.optim.lr_scheduler.StepLR`). 
 
   ```text 
   TrainingJobName: p3-dog-breeds-debug-20241204-124107 
@@ -151,15 +161,16 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
       'batch-size': 32,   
       'opt-learning-rate': 8e-5,  
       'opt-weight-decay': 1e-5,  
-      'lr-sched-step-size': 6,   ## by epoch
+      'lr-sched-step-size': 5,   ## by epoch
       'lr-sched-gamma': 0.5,
-      'early-stopping': 5,
+      'early-stopping-patience': 5,
       'model-type': 'resnet50',  ## pre-trained
       'debug': True,  
   } 
   ```
-  <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-06%2013_11_35-Settings_best%20score.jpg" width=600>  
+  <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-07%2012_10_48-Settings.jpg" width=600>  
 
+<br>  
 
 🏷️ **W&B Sweep**  
 
@@ -171,7 +182,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
     <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-03%2019_51_24-sagemaker-hpo%20_%20udacity-awsmle-resnet50-dog-breeds%20Workspace%20%E2%80%93%20Weights%20%26%20Biases.jpg" width=600>  
 
-
+<br>  
 
 ## **👉 Debugging and Profiling**  
 
@@ -197,6 +208,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   * Once training job is complete, SageMaker automatically generates detailed debugging and profiling reports, which you can view in the AWS Management Console or download for further analysis. These reports highlight potential issues, such as high latency or under-utilization of resources.  
 
+<br>  
 
 ### 🏷️ Results  
 
@@ -215,6 +227,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   * Remember to provide the profiler html/pdf file in your submission.
 
+<br>  
 
 ## **👉 Model Deployment**  
 
@@ -291,6 +304,8 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/p3-dog-breed-classification_endpoint.jpg" width=600>  
 
 
+<br>  
+
 ## **⚠️ Clean Up Resources**   
 
 * Delete endpoint model and endpoint   
@@ -334,6 +349,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   delete_log_streams(s3_client_logs, log_group_name)  
   ```
 
+<br>  
 
 ## 🟢 Standout Suggestions  
 
@@ -371,4 +387,6 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 * Checking [the official SageMaker documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) is a good practice.   
 
-  <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-06%2017_02_03-Settings-min.jpg" width=600>   
+  * `Model training > Debugging and improving model performance`  
+
+    <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-06%2017_02_03-Settings-min.jpg" width=600>   
