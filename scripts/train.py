@@ -150,24 +150,26 @@ def net(model_type, num_classes):
 
 
 
-def save(model, model_dir, model_name='model.pt'):
-    ## ⚠️ Please ensure model is saved using torchscript.
-    ## https://pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html
+def save(model, model_dir, model_name='model.pth'):
     model.eval()
     path = os.path.join(model_dir, model_name)
-    '''
     ## save model weights
     with open(path, 'wb') as f:
         torch.save(model.state_dict(), f)
+    ## Please ensure model is saved using torchscript when necessary.
+    ## https://pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html
+    '''
     ## If your model is simple and has a straightforward forward pass, use torch.jit.trace
     example_input = torch.randn(1, 3, 224, 224)
     traced_model = torch.jit.trace(model, example_input)
     traced_model.save(path)
     '''
+    '''
     ## If your model has dynamic control flow (like if statements based on input), 
     ## use torch.jit.script
     scripted_model = torch.jit.script(model)
     scripted_model.save(path) 
+    '''
     print(f"Model saved at '{path}'")
 
 

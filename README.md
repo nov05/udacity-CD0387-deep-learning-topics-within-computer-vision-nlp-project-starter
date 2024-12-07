@@ -339,7 +339,29 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 **TODO (Optional):** This is where you can provide information about any standout suggestions that you have attempted.  
 
-* W&B logging and sweeps are incorporated to gain better insights into the importance of hyperparameters and to explore their potential range.     
+* [W&B logging and sweeping](https://wandb.ai/) are incorporated to gain better insights into the importance of hyperparameters and to explore their potential range.    
+
+  * In the training notebook, the following code generates wandb credential in the `scripts/` dir.    
+    ```python
+    import wandb
+    ## generate secrets.env. remember to add it to .gitignore  
+    wandb.sagemaker_auth(path="scripts")  
+    ```
+
+  * In the `scripts/train.py` file, the following code initiate and finish a wandb run.   
+    ```python
+    wandb.init(
+        ## set the wandb project where this run will be logged
+        project="udacity-awsmle-resnet50-dog-breeds",
+        config=vars(parser.parse_args())
+    )
+    ## your code inbetween
+    wandb.finish()
+    ```
+  * In the `scripts/train.py` file, the following code logs training loss. You can always log other metrics.     
+    ```python
+    wandb.log({"train_loss": loss.item()}, step=step_counter.total_steps)
+    ```
 
 * All operations, except for generating debugging and profiling reports, are executed locally using Python code and `AWS CLI`. This significantly improved workflow automation and reduced the costs associated with `SageMaker Studio`.  
 
