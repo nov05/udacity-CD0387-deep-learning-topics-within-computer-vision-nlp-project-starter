@@ -31,7 +31,7 @@ Download/Make the dataset available.
 
   * Check [the Google Docs notes](https://docs.google.com/document/d/1OvnsKYyGk-ww8NVl7hdQxXkUAjU8WvIuTo9pzTLv2Ls/).  
 
-  * For this project, I used `SageMaker` locally in `VS Code` for a better IDE experience. However, the debugging and profiling reports were generated in `AWS SageMaker Studio`, as the libraries didn’t seem to work properly in the local environment.     
+  * For this project, I used `SageMaker` locally in `VS Code` for a better IDE experience. However, the debugging and profiling reports were generated in `AWS SageMaker Studio`, as the libraries didn’t seem to work properly in the local environment (`Windows OS`).     
 
     * Set up [the local conda env `awsmle_py310`](https://gist.github.com/nov05/d9c3be6c2ab9f6c050e3d988830db08b) (without `CUDA`, as all the jobs were executed on `AWS`)     
 
