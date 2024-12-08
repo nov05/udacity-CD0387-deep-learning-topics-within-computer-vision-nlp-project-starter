@@ -239,7 +239,9 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   * Remember to provide the profiler html/pdf file in your submission.
 
     * [View the html report](https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html) (hosted on Github)  
-      <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-07%2020_38_11-profiler-report.jpg" width=600>
+      <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-07%2020_38_11-profiler-report.jpg" width=600>  
+
+    * Check [the debug job notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/03.debug_trial_profile.ipynb)  
 
 <br>  
 
