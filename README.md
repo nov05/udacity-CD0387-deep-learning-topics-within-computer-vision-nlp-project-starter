@@ -10,6 +10,14 @@ Use AWS Sagemaker to train a pretrained model that can perform image classificat
 * Result demo video (click to watch it on YouTube)  
   [<img src="https://github.com/nov05/pictures/blob/master/Udacity/20241119_aws-mle-nanodegree/p3%20dog%20breed%20classification%20resnet50.gif?raw=true" width=600>](https://www.youtube.com/watch?v=JWUoDsbUt5o)  
 
+* Project artifacts:
+  All files are in the repo root directory:
+  1. train_and_deploy.ipynb ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb))
+  2. train.py ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/scripts/train.py), and [inference.py](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py))
+  3. hpo.py (for hyperparameter optimization, same with `train.py`)
+  4. PDF/HTML of the Profiling Report ([this file](https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html))
+  5. README.md (what you are reading now)
+
 <br>  
 
 ## **👉 Project Set Up and Installation**     
