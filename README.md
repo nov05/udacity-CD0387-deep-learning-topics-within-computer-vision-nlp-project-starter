@@ -4,14 +4,14 @@ This is the project folder for Project 3 `Dog Breed Image Classification`, Cours
 
 Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This can be done on either [the provided dog breed classication data set](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) or one of your choice.
 
-* Project overview:  
+* **Project overview**:  
   * There are **133 dog breeds** in the dataset. 
   * Finetuned a **pretrained ResNet50** model.
   * Reaching a **test accuracy of 91.39%** after 16 epochs (43 minutes) on an `ml.g4dn.xlarge` instance
   * Result demo video (click to watch it on YouTube)  
     [<img src="https://github.com/nov05/pictures/blob/master/Udacity/20241119_aws-mle-nanodegree/p3%20dog%20breed%20classification%20resnet50.gif?raw=true" width=600>](https://www.youtube.com/watch?v=JWUoDsbUt5o)  
 
-* Project artifacts:
+* **Submission artifacts**:  
   All files are in the repo root directory:
   * train_and_deploy.ipynb ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb))
   * train.py ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/scripts/train.py), and [inference.py](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py))
@@ -254,7 +254,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   * Remember to provide the profiler html/pdf file in your submission.
 
     * [View the html report](https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html) (hosted on Github)  
-    
+
       [<img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-07%2020_38_11-profiler-report.jpg" width=600>](https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html)  
 
     * Check [the debug job notebook](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/03.debug_trial_profile.ipynb)  
