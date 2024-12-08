@@ -4,19 +4,20 @@ This is the project folder for Project 3 `Dog Breed Image Classification`, Cours
 
 Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This can be done on either [the provided dog breed classication data set](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) or one of your choice.
 
-* There are 133 dog breeds in the dataset. 
-* Finetuned a pretrained ResNet50 model.
-* Reaching a test accuracy of 91.39% after 16 epochs (43 minutes) on an `ml.g4dn.xlarge` instance
-* Result demo video (click to watch it on YouTube)  
-  [<img src="https://github.com/nov05/pictures/blob/master/Udacity/20241119_aws-mle-nanodegree/p3%20dog%20breed%20classification%20resnet50.gif?raw=true" width=600>](https://www.youtube.com/watch?v=JWUoDsbUt5o)  
+* Project overview:  
+  * There are 133 dog breeds in the dataset. 
+  * Finetuned a pretrained ResNet50 model.
+  * Reaching a test accuracy of 91.39% after 16 epochs (43 minutes) on an `ml.g4dn.xlarge` instance
+  * Result demo video (click to watch it on YouTube)  
+    [<img src="https://github.com/nov05/pictures/blob/master/Udacity/20241119_aws-mle-nanodegree/p3%20dog%20breed%20classification%20resnet50.gif?raw=true" width=600>](https://www.youtube.com/watch?v=JWUoDsbUt5o)  
 
 * Project artifacts:
   All files are in the repo root directory:
-  1. train_and_deploy.ipynb ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb))
-  2. train.py ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/scripts/train.py), and [inference.py](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py))
-  3. hpo.py (for hyperparameter optimization, same with `train.py`)
-  4. PDF/HTML of the Profiling Report ([this file](https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html))
-  5. README.md (what you are reading now)
+  * train_and_deploy.ipynb ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/02.train_hpo_debug_deploy.ipynb))
+  * train.py ([this file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/scripts/train.py), and [inference.py](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py))
+  * hpo.py (for hyperparameter optimization, same with `train.py`)
+  * PDF/HTML of the Profiling Report ([this file](https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html))
+  * README.md (what you are reading now)
 
 <br>  
 
