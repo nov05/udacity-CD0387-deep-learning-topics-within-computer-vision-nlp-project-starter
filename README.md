@@ -285,7 +285,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
       data_image = Image.open(BytesIO(data_bytes)).convert('RGB')  # Ensure 3-channel RGB
       ```
 
-    * It is simpler for the output data. Here `prediction` is a list.
+    * It is simpler for the output data. Here `prediction` in the `output-fn()` is a list.
 
       ```python
       return json.dumps(prediction)
