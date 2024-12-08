@@ -264,7 +264,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 * Give an overview of the deployed model and instructions on how to query the endpoint with a sample input. 
 
-  * Check [the `deploy_scrpits/inference.py` file](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py). There are 4 custom functions for inference endpoint to handle the models loading/prediction and data input/output: `model_fn()`, `input_fn()`, `predict_fn()`, `output_fn()`.    
+  * Check the [`deploy_scrpits/inference.py`](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py) file. There are 4 custom functions for inference endpoint to handle the models loading/prediction and data input/output: `model_fn()`, `input_fn()`, `predict_fn()`, `output_fn()`.    
 
   * I decided to attach a JSON serializer and deserializer to the estimator. (I tried using the Identity serializer for image data in my last course project.)  
 
