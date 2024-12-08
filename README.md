@@ -4,6 +4,12 @@ This is the project folder for Project 3 `Dog Breed Image Classification`, Cours
 
 Use AWS Sagemaker to train a pretrained model that can perform image classification by using the Sagemaker profiling, debugger, hyperparameter tuning and other good ML engineering practices. This can be done on either [the provided dog breed classication data set](https://s3-us-west-1.amazonaws.com/udacity-aind/dog-project/dogImages.zip) or one of your choice.
 
+* There are 133 dog breeds in the dataset. 
+* Finetuned a pretrained ResNet50 model.
+* Reaching a test accuracy of 91.39% after 16 epochs (43 minutes) on an `ml.g4dn.xlarge` instance
+* Result demo video (click to watch it on YouTube)  
+  [<img src="https://github.com/nov05/pictures/blob/master/Udacity/20241119_aws-mle-nanodegree/p3%20dog%20breed%20classification%20resnet50.gif?raw=true" width=600>](https://www.youtube.com/watch?v=JWUoDsbUt5o)  
+
 <br>  
 
 ## **👉 Project Set Up and Installation**     
@@ -219,7 +225,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   * What are the results/insights did you get by profiling/debugging your model?
 
-    * E.g. Got an warning message when debugging: `PoorWeightInitialization: IssuesFound`   
+    * ⚠️ E.g. Got an warning message when debugging: `PoorWeightInitialization: IssuesFound`   
       ```text
       [12/04/24 02:10:21] WARNING  Job ended with status 'Stopped' rather than 'Completed'. This could    session.py:8593
                                     mean the job timed out or stopped early for some other reason:                        
