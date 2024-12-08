@@ -416,7 +416,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 * Resources are cleaned up after tasks are completed to minimize costs.    
 
-* If I had more time, I would explore asynchronous inference, batch transformation, deploying multiple models with production variants, and using SageMaker Clarify, among other features.    
+* If I had more time, I would explore distributed training, asynchronous inference, batch transformation, deploying multiple models with production variants, and using SageMaker Clarify, among other features.      
 
 * Checking [the official SageMaker documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html) is a good practice.   
 
