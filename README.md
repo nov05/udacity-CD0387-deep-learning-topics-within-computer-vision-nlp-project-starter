@@ -322,7 +322,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
 <br>  
 
-## **⚠️ Clean Up Resources**   
+## **⚠️ Clean Up Resources (IMPORTANT)**   
 
 * Delete endpoint model and endpoint   
 
@@ -364,6 +364,8 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   log_group_name = "/aws/sagemaker/Endpoints/p3-dog-breed-classification"
   delete_log_streams(s3_client_logs, log_group_name)  
   ```
+
+* After you're done working in the AWS `SageMaker Studio` console, make sure there are **no running instances**, and delete the SageMaker Studio space if you no longer need it, as it can incur costs even when it's not in use.   
 
 <br>  
 
