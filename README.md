@@ -7,7 +7,9 @@ Use AWS Sagemaker to train a pretrained model that can perform image classificat
 * **Project overview**:  
   * There are **133 dog breeds** in the dataset. 
   * Finetuned a **pretrained ResNet50** model.
-  * Reaching a **test accuracy of 91.39%** after 16 epochs (43 minutes) on an `ml.g4dn.xlarge` instance
+  * Reaching a **test accuracy of 91.39%** after 16 epochs (43 minutes) on an `ml.g4dn.xlarge` GPU instance 
+  * Hyperparameter optimization, logging, debugging and profiling  
+  * Deployed on a `ml.m5.large` CPU instance, endpoint tested by randomly chosen pictures from the test dataset in S3  
   * Result demo video (click to watch it on YouTube)  
     [<img src="https://github.com/nov05/pictures/blob/master/Udacity/20241119_aws-mle-nanodegree/p3%20dog%20breed%20classification%20resnet50.gif?raw=true" width=600>](https://www.youtube.com/watch?v=JWUoDsbUt5o)  
 
@@ -287,7 +289,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
       data_image = Image.open(BytesIO(data_bytes)).convert('RGB')  # Ensure 3-channel RGB
       ```
 
-    * It is simpler for the output data. Here `prediction` in the `output-fn()` is a list.
+    * It is simpler for the output data. Here `prediction` in the `output_fn()` is a list.
 
       ```python
       return json.dumps(prediction)
