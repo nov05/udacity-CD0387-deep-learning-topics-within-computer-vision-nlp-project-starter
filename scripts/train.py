@@ -19,7 +19,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True  # Allow truncated images
 # ====================================#
 # 1. Import SMDebug framework class.  #
 # ====================================#
-import smdebug.pytorch as smd
+# import smdebug.pytorch as smd
 
 
 
@@ -82,6 +82,42 @@ class EarlyStopping:
 
 
 
+def train(task):
+    '''
+    TODO: Complete this function that can take a model and
+          data loaders for training and will get train the model
+          Remember to include any debugging/profiling hooks that you might need
+    '''
+    # =================================================#
+    # 2. Set the SMDebug hook for the training phase. #
+    # =================================================#
+    if task.config.debug: 
+        task.hook.set_mode(smd.modes.TRAIN)
+    task.model.train()
+    print(f"👉 Train Epoch: {task.current_epoch}")
+    for batch_idx, (data, target) in enumerate(task.train_loader):
+        task.step_counter()
+        data, target = data.to(task.config.device), target.to(task.config.device)  ## inputs, labels
+        task.optimizer.zero_grad()
+        output = task.model(data)
+        loss = task.train_criterion(output, target)
+        if task.config.wandb:
+            wandb.log({"train_loss": loss.item()}, step=task.step_counter.total_steps)
+        loss.backward()
+        task.optimizer.step()
+        if batch_idx%100 == 0:
+            print(
+                "Train Epoch: {} [{}/{} ({:.0f}%)], Loss: {:.6f}".format(
+                    task.current_epoch,
+                    batch_idx * len(data),
+                    len(task.train_loader.dataset),
+                    100.0 * batch_idx / len(task.train_loader),
+                    loss.item(),
+                )
+            )
+
+
+
 def test(task, phase='eval'):
     '''
     TODO: Complete this function that can take a model and a 
@@ -121,42 +157,6 @@ def test(task, phase='eval'):
     )
     if phase=='eval' and task.config.wandb:
         wandb.log({f"{phase}_accuracy_epoch": accuracy}, step=task.step_counter.total_steps)
-
-
-
-def train(task):
-    '''
-    TODO: Complete this function that can take a model and
-          data loaders for training and will get train the model
-          Remember to include any debugging/profiling hooks that you might need
-    '''
-    # =================================================#
-    # 2. Set the SMDebug hook for the training phase. #
-    # =================================================#
-    if task.config.debug: 
-        task.hook.set_mode(smd.modes.TRAIN)
-    task.model.train()
-    print(f"👉 Train Epoch: {task.current_epoch}")
-    for batch_idx, (data, target) in enumerate(task.train_loader):
-        task.step_counter()
-        data, target = data.to(task.config.device), target.to(task.config.device)  ## inputs, labels
-        task.optimizer.zero_grad()
-        output = task.model(data)
-        loss = task.train_criterion(output, target)
-        if task.config.wandb:
-            wandb.log({"train_loss": loss.item()}, step=task.step_counter.total_steps)
-        loss.backward()
-        task.optimizer.step()
-        if batch_idx%100 == 0:
-            print(
-                "Train Epoch: {} [{}/{} ({:.0f}%)], Loss: {:.6f}".format(
-                    task.current_epoch,
-                    batch_idx * len(data),
-                    len(task.train_loader.dataset),
-                    100.0 * batch_idx / len(task.train_loader),
-                    loss.item(),
-                )
-            )
 
 
 
@@ -247,6 +247,11 @@ def main(task):
         task.hook.register_hook(task.model)  
     ## TODO: Create your loss and optimizer
     # criterion = nn.CrossEntropyLoss() 
+    task.train_criterion = nn.CrossEntropyLoss(weight=class_weights)  # loss per step
+    task.val_criterion = nn.CrossEntropyLoss(weight=class_weights, reduction="sum")  ## loss per epoch
+    if task.config.debug and task.hook:
+        task.hook.register_loss(task.train_criterion)
+        task.hook.register_loss(task.val_criterion)
     task.optimizer = optim.AdamW(
         task.model.parameters(), 
         lr=task.config.opt_learning_rate,
@@ -265,11 +270,7 @@ def main(task):
     # ===========================================================#
     for epoch in range(task.config.epochs):
         task.current_epoch = epoch
-        task.train_criterion = nn.CrossEntropyLoss(weight=class_weights)  # loss per step
-        if task.config.debug and task.hook:
-            task.hook.register_loss(task.train_criterion)
         train(task)
-        task.val_criterion = nn.CrossEntropyLoss(weight=class_weights, reduction="sum")  ## loss per epoch
         test(task, phase='eval')
         if task.early_stopping.early_stop:
             print("⚠️ Early stopping")
@@ -322,10 +323,13 @@ if __name__=='__main__':
             allow_val_change=True,
             config=args,
         )
+    if task.config.debug:
+        import smdebug.pytorch as smd
     main(task)
     if task.config.wandb:
         try:
-            wandb.config.update(task.config.__dict__)
+            wandb.config.update(task.config.__dict__, 
+                                allow_val_change=True)
         except Exception as e:
             print(f"⚠️ Updating wandb config failed: {e}")
         wandb.finish()

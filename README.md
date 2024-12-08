@@ -232,6 +232,8 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   * Remember to provide the profiler html/pdf file in your submission.
 
+    <iframe src="https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html" width="800" height="600"></iframe>
+
 <br>  
 
 ## **👉 Model Deployment**  
