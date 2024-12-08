@@ -320,7 +320,6 @@ if __name__=='__main__':
         task.wandb_run = wandb.init(
             ## set the wandb project where this run will be logged
             project="udacity-awsmle-resnet50-dog-breeds",
-            allow_val_change=True,
             config=args,
         )
     if task.config.debug:
