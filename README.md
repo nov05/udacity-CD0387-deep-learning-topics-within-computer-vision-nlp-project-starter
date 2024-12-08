@@ -266,9 +266,10 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
   * Check the [`deploy_scrpits/inference.py`](https://github.com/nov05/udacity-CD0387-deep-learning-topics-within-computer-vision-nlp-project-starter/blob/main/deploy_scripts/inference.py) file. There are 4 custom functions for inference endpoint to handle the models loading/prediction and data input/output: `model_fn()`, `input_fn()`, `predict_fn()`, `output_fn()`.    
 
-  * I decided to attach a JSON serializer and deserializer to the estimator. (I tried using the Identity serializer for image data in my last course project.)  
+  * I decided to attach a `JSON serializer` and `JSON deserializer` to the estimator. (I tried using the Identity serializer for image data in my last course project.)  
 
-    * Input data needs to be encoded probably before sending to the endpoint. 
+    * Input data needs to be encoded probably before sending to the endpoint.  
+      *P.S. JSON dumps and loads are probably unnecessary, but I'll test it out and update the code accordingly.*     
       ```python
       with open(local_object, "rb") as f:
         payload = json.dumps(
