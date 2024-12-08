@@ -230,9 +230,16 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
       torch.nn.init.kaiming_normal_(model.fc.weight)  # Initialize new layers
       ```
 
+    * With 90% of the time spent in the `Training Loop` and `GPU utilization` at 36%, both of those seem reasonable.  
+
+    * ⚠️ The `GPUMemoryIncrease` rule was triggered 734 times, indicating that the memory footprint is nearing the available limit. It suggests opting for a larger instance type with more memory. I went with a smaller GPU instance to save on costs.    
+
+    * ⚠️ The `LowGPUUtilization` rule was triggered 35 times, suggesting there might be bottlenecks and recommending actions like minimizing blocking calls, changing the distributed training strategy, or increasing the batch size. I set the batch size to 32, but it could likely be increased.
+
   * Remember to provide the profiler html/pdf file in your submission.
 
-    <iframe src="https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html" width="800" height="600"></iframe>
+    * [View the html report](https://nov05.github.io/htmls/udacity/20241207_aws-mle-nanodegree/profiler-report.html) (hosted on Github)  
+      <img src="https://raw.githubusercontent.com/nov05/pictures/refs/heads/master/Udacity/20241119_aws-mle-nanodegree/2024-12-07%2020_38_11-profiler-report.jpg" width=600>
 
 <br>  
 
