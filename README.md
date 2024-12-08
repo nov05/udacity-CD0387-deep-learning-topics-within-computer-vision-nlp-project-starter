@@ -280,7 +280,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
 
       ```python
       data_bytes = base64.b64decode(
-        json.loads(input_data)
+        input_data ##json.loads(input_data)
       )
       data_image = Image.open(BytesIO(data_bytes)).convert('RGB')  # Ensure 3-channel RGB
       ```
