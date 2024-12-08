@@ -59,7 +59,7 @@ The provided dataset is [the dogbreed classification dataset](https://s3-us-west
 
   * There are **a total of 8,351 images**, already divided into train, validation, and test sets: 6,680 for training, 835 for validation, and 836 for testing. While this dataset may not be large enough to train a deep learning model from scratch, it should be sufficient for fine-tuning a pretrained model, like ResNet50. 
 
-    So far, the best test accuracy I've achieved is **80.62%**, which indicates that adding more training data could help improve performance. However, since I don't have the time to do that, we'll stick with the current dataset for this project.
+    So far, the best test accuracy I've achieved is **91.39%**, which indicates that adding more training data could help improve performance. However, since I don't have the time to do that, we'll stick with the current dataset for this project.
 
   * Download two images locally and display them to get a better feel for the data.      
 
