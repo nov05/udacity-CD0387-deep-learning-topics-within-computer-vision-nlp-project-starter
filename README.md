@@ -269,7 +269,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   * I decided to attach a `JSON serializer` and `JSON deserializer` to the estimator. (I tried using the Identity serializer for image data in my last course project.)  
 
     * Input data needs to be encoded probably before sending to the endpoint.  
-      *P.S. JSON dumps and loads are probably unnecessary, but I'll test it out and update the code accordingly.*     
+      *P.S. The following code works, but JSON dumps and loads are probably unnecessary since the JSON serializer is already attached. I'll test it out and update the code accordingly.*      
       ```python
       with open(local_object, "rb") as f:
         payload = json.dumps(
