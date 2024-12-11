@@ -117,7 +117,7 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
   * For this project, I'm using `eval_loss_epoch`, which represents the average loss per step within an epoch.  
 
 - Tune at least two hyperparameters
-  * Unfortunately, there is a strict limit on **GPU instances** for training jobs. For example, only 2 training jobs can be created at a time for an HPO job using `ml.g4dn.xlarg` (Go to `Service Quotas > AWS services > Amazon SageMaker`, search for `ml.g4dn.xlarg`.) So, while I can demonstrate creating an HPO job, the results may not be optimal.  
+  * Unfortunately, there is a strict limit on **GPU instances** for training jobs. For example, only 2 training jobs can be created at a time for an HPO job using `ml.g4dn.xlarge` (Go to `Service Quotas > AWS services > Amazon SageMaker`, search for `ml.g4dn.xlarge`.) So, while I can demonstrate creating an HPO job, the results may not be optimal.  
 
     ```python
     hyperparameter_ranges = {
