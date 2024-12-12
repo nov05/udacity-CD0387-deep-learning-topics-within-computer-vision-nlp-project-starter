@@ -416,7 +416,8 @@ Upload the data to an S3 bucket through the AWS Gateway so that SageMaker has ac
     wandb.log({"train_loss": loss.item()}, step=step_counter.total_steps)
     ```
 
-* All operations, except for generating debugging and profiling reports, are executed locally using Python code and `AWS CLI`. This significantly improved workflow automation and reduced the costs associated with `SageMaker Studio`.  
+* All operations, except for generating debugging and profiling reports, are executed locally using Python code and `AWS CLI`. This significantly improved workflow automation and reduced the costs associated with `SageMaker Studio`.   
+  * [Medium post](https://medium.com/@liuwenjing.datascience/quick-tips-for-minimizing-aws-sagemaker-costs-in-machine-learning-exercises-874e25a4d23b)  
 
 * Resources are cleaned up after tasks are completed to minimize costs.    
 
