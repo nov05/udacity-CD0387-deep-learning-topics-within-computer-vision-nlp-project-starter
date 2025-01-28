@@ -322,6 +322,10 @@ if __name__=='__main__':
             project="udacity-awsmle-resnet50-dog-breeds",
             config=args,
         )
+## TODO: Import dependencies for Debugging andd Profiling
+# ====================================#
+# 1. Import SMDebug framework class.  #
+# ====================================#
     if task.config.debug:
         import smdebug.pytorch as smd
     main(task)
